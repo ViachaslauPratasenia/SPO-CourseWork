@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Копилка"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
+
+        <ListView
+            android:id="@+id/lv_money_box"
+            android:layout_width="match_parent"
+            android:layout_height="473dp" />
+
+        <Button
+            android:id="@+id/money_box_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="Добавить"
+            android:textColor="@android:color/background_light" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
