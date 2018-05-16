@@ -28,7 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_DEPTOR_ID + " integer primary key autoincrement, " +
                     COLUMN_DEPTOR_NAME + " text, " +
                     COLUMN_DEPTOR_MONEY + " real, " +
-                    COLUMN_DEPTOR_CHOISE + " real" + ");";
+                    COLUMN_DEPTOR_CHOISE + " text" + ");";
 
     private static final String DB_CREATE_BIRTHDAYS = "create table " + DB_BIRTHDAYS_TABLE + "(" +
             COLUMN_BIRTHDAYS_ID + " integer primary key autoincrement, " +

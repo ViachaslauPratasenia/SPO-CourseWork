@@ -3,6 +3,7 @@ package by.proslau.watchthemoney.contacts;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 
@@ -14,13 +15,20 @@ import java.util.HashMap;
  */
 
 public class ContactWork {
+    private static final Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
     private static final String CONTACT_ID = ContactsContract.Contacts._ID;
     private static final String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
     private static final String HAS_PHONE_NUMBER = ContactsContract.Contacts.HAS_PHONE_NUMBER;
     private static final String PHONE_NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
     private static final String PHONE_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
+    private static final Uri PHONE_CONTENT_URI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
-    public static ArrayList<Contact> getAll(Context context) {
+    public void getContacts(){
+        String phoneNumber = null;
+        StringBuffer stringBuffer = new StringBuffer();
+    }
+
+    /*public static ArrayList<Contact> getAll(Context context) {
         ContentResolver cr = context.getContentResolver();
 
         Cursor pCur = cr.query(
@@ -70,6 +78,6 @@ public class ContactWork {
             pCur.close();
         }
         return null;
-    }
+    }*/
 
 }

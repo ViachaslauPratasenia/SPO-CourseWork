@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 
 public class DBDebtorHelper {
-    private static final String DB_NAME = "WTMDatabase";
+    private static final String DB_NAME = "database";
     private static final int DB_VERSION = 1;
     /*final String LOG_TAG = "myLogs";
 
@@ -57,7 +57,11 @@ public class DBDebtorHelper {
         return sqLiteDatabase.query(DBHelper.DB_DEPTOR_TABLE, null, null, null, null, null, null);
     }
 
-    public void addRec(String text, double money, int check){
+    public Cursor getData(long num){
+        return sqLiteDatabase.query(DBHelper.DB_DEPTOR_TABLE, null, "choise = " + num, null, null, null, null);
+    }
+
+    public void addRec(String text, double money, String check){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.COLUMN_DEPTOR_NAME, text);
         contentValues.put(DBHelper.COLUMN_DEPTOR_MONEY, money);

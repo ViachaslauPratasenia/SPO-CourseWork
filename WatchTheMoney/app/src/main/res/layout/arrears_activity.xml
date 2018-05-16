@@ -9,16 +9,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/choise_arrears"
+        <TextView
+            android:id="@+id/textView7"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:entries="@array/arrears_list" />
+            android:layout_height="wrap_content"
+            android:text="Долги"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
 
         <ListView
-            android:id="@+id/arrears_list_view"
+            android:id="@+id/lv_deptors"
             android:layout_width="match_parent"
-            android:layout_height="480dp" />
+            android:layout_height="520dp" />
 
         <Button
             android:id="@+id/arrears_add"

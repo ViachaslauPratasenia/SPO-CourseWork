@@ -23,7 +23,8 @@ public class InputDeptorActivity extends Activity implements View.OnClickListene
     RadioButton yoursDepts;
     RadioButton depts;
     Button btnOK;
-    int check;
+    Button btnAddContact;
+    String check;
     RadioGroup radioGroup;
 
     @Override
@@ -37,11 +38,28 @@ public class InputDeptorActivity extends Activity implements View.OnClickListene
         btnOK = (Button) findViewById(R.id.input_deptor_add);
         btnOK.setOnClickListener(this);
 
+        btnAddContact = (Button) findViewById(R.id.input_deptor_add_contacts);
+        btnAddContact.setOnClickListener(this);
+
         radioGroup = (RadioGroup) findViewById(R.id.input_deptor_rgroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i){
+                    case R.id.yours_depts:
+                        check = "Вы должны";
+                        break;
+                    case R.id.depts:
+                        check = "Вам должны";
+                        break;
+                }
+            }
+        });
+        /*radioGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RadioButton rb = (RadioButton)view;
+                switch (rb.getId()){
                     case R.id.yours_depts:
                         check = 1;
                         break;
@@ -50,31 +68,47 @@ public class InputDeptorActivity extends Activity implements View.OnClickListene
                         break;
                 }
             }
-        });
+        });*/
     }
 
     @Override
     public void onClick(View view) {
         Intent intent = new Intent();
-        try {
-            double money = Double.parseDouble(etMoney.getText().toString());
-            if(money < 0){
-                Toast.makeText(this, "Долг не может быть меньше нуля", Toast.LENGTH_LONG).show();
-                etMoney.setText(null);
-            }
-            else if(etName.getText().toString().equals("")){
-                Toast.makeText(this, "Введите имя", Toast.LENGTH_LONG).show();
-            }
-            else{
-                intent.putExtra("name", etName.getText().toString());
-                intent.putExtra("money", money);
-                intent.putExtra("choise", check);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
+        switch (view.getId()){
+            case R.id.input_deptor_add:
+                try {
+                    double money = Double.parseDouble(etMoney.getText().toString());
+                    if(money < 0){
+                        Toast.makeText(this, "Долг не может быть меньше нуля", Toast.LENGTH_LONG).show();
+                        etMoney.setText(null);
+                    }
+                    else if(etName.getText().toString().equals("")){
+                        Toast.makeText(this, "Введите имя", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        intent.putExtra("name", etName.getText().toString());
+                        intent.putExtra("money", money);
+                        intent.putExtra("choise", check);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
 
-        } catch (Exception e) {
-            Toast.makeText(this, "Неправильно введено число", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(this, "Неправильно введено число", Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.input_deptor_add_contacts:
+                Intent contactIntent = new Intent(this, ContactActivity.class);
+                startActivityForResult(contactIntent, 1);
+                break;
         }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(data == null) return;
+        String name = data.getStringExtra("contact");
+        etName.setText(name);
     }
 }

@@ -21,7 +21,7 @@
         <ListView
             android:id="@+id/lv_birthdays"
             android:layout_width="match_parent"
-            android:layout_height="467dp" />
+            android:layout_height="520dp" />
 
         <Button
             android:id="@+id/birthdays_add"

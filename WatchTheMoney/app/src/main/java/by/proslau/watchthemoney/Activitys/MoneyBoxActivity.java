@@ -39,6 +39,7 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
         cursor = dbMoneyBoxHelper.getAllData();
         cursor.requery();
 
+
         String[] from = new String[]{DBHelper.COLUMN_MONEYBOX_MONEY, DBHelper.COLUMN_MONEYBOX_DATE, DBHelper.COLUMN_MONEYBOX_NOTE};
         int[] to = new int[] {R.id.tv_money_box_money, R.id.tv_money_box_date, R.id.tv_money_box_note};
 

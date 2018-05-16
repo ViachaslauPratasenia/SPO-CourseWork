@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 
 import by.proslau.watchthemoney.R;
 import by.proslau.watchthemoney.database.DBDebtorHelper;
@@ -28,12 +29,40 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
     SimpleCursorAdapter simpleCursorAdapter;
     Cursor cursor;
 
+    String choise = "nihuya not work";
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.arrears_activity);
 
+
+
+        /*
+        cursor = db.getData(0);
+
+
+        //НЕ РАБОТАЕТ ВЫВОД ТАБЛИЦЫ В СПИННЕРЕ
+
+        spinner = (Spinner) findViewById(R.id.arrears_spinner_choise);
+        //ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(this, R.array.arrears_list, R.layout.support_simple_spinner_dropdown_item);
+        //adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        //spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                long choise = spinner.getSelectedItemId();
+                cursor = db.getData(choise);
+                cursor.requery();
+                Toast.makeText(getApplicationContext(), "num " + choise, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });*/
 
         db = new DBDebtorHelper(this);
         db.open();
@@ -43,10 +72,10 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
 
         String[] from = new String[] {DBHelper.COLUMN_DEPTOR_NAME, DBHelper.COLUMN_DEPTOR_MONEY,
             DBHelper.COLUMN_DEPTOR_CHOISE};
-        int[] to = new int[]{R.id.tv_deptor_name, R.id.tv_deptor_money};
+        int[] to = new int[]{R.id.tv_deptor_name, R.id.tv_deptor_money, R.id.tv_deptor_choise};
 
         simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.deptor_item, cursor, from, to);
-        lvData = (ListView)findViewById(R.id.arrears_list_view);
+        lvData = (ListView)findViewById(R.id.lv_deptors);
         lvData.setAdapter(simpleCursorAdapter);
         registerForContextMenu(lvData);
 
@@ -85,7 +114,7 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
         if(data == null) return;
         String name = data.getStringExtra("name");
         double money = data.getDoubleExtra("money",0);
-        int check = data.getIntExtra("check", -1);
+        String check = data.getStringExtra("choise");
         db.addRec(name, money, check);
         cursor.requery();
     }

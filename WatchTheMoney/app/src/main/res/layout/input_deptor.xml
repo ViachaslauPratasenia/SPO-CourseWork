@@ -37,6 +37,14 @@
                 android:inputType="textPersonName"
                 android:textAlignment="center" />
 
+            <Button
+                android:id="@+id/input_deptor_add_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:text="Добавить из контактов"
+                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/tv_arrears_money"
                 android:layout_width="match_parent"

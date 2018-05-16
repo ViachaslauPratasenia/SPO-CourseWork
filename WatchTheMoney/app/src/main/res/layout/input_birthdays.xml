@@ -25,6 +25,12 @@
             android:textAlignment="center" />
 
         <Button
+            android:id="@+id/birthdays_add_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Добавить из контактов" />
+
+        <Button
             android:id="@+id/birthays_choise_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

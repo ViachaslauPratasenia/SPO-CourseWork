@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
 
         Button addMainButton = (Button) findViewById(R.id.add_main_button);
         Button deleteMainButton = (Button) findViewById(R.id.delete_main_button);
+
         registerForContextMenu(addMainButton);
         registerForContextMenu(deleteMainButton);
 
@@ -79,6 +80,10 @@ public class MainActivity extends AppCompatActivity
                 menu.add(0,3,0,"Удалить категорию");
                 menu.add(0,4,0,"Удалить из бюджета");
                 break;
+            case R.id.arrears:
+                menu.add(0,5,0, "Вам должны");
+                menu.add(0,6,0,"Вы должны");
+                break;
         }
     }
 
@@ -96,6 +101,10 @@ public class MainActivity extends AppCompatActivity
                 dialogDelete.show(getFragmentManager(), "second");
                 break;
             case 4:
+                break;
+            case 5:
+                break;
+            case 6:
                 break;
         }
         return super.onContextItemSelected(item);

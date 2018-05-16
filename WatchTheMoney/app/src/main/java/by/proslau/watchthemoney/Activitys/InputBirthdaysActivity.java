@@ -22,6 +22,7 @@ public class InputBirthdaysActivity extends Activity implements View.OnClickList
     EditText etName;
     Button btnOK;
     Button btnChoiseData;
+    Button btnAddContact;
     TextView textView;
 
     int DIALOG_DATE = 1;
@@ -39,6 +40,10 @@ public class InputBirthdaysActivity extends Activity implements View.OnClickList
         btnChoiseData = (Button) findViewById(R.id.birthays_choise_data);
         btnOK.setOnClickListener(this);
         btnChoiseData.setOnClickListener(this);
+
+        btnAddContact = (Button) findViewById(R.id.birthdays_add_contact);
+        btnAddContact.setOnClickListener(this);
+
         textView = (TextView) findViewById(R.id.tv_birthdays_choise_date);
     }
 
@@ -61,7 +66,18 @@ public class InputBirthdaysActivity extends Activity implements View.OnClickList
             case R.id.birthays_choise_data:
                 showDialog(DIALOG_DATE);
                 break;
+            case R.id.birthdays_add_contact:
+                Intent contactIntent = new Intent(this, ContactActivity.class);
+                startActivityForResult(contactIntent, 1);
+                break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(data == null) return;
+        String name = data.getStringExtra("contact");
+        etName.setText(name);
     }
 
     protected Dialog onCreateDialog(int id) {

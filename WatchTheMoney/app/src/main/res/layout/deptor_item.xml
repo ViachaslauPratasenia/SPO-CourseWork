@@ -17,8 +17,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text=""
-            android:textAlignment="textStart"
-            android:textSize="18sp"></TextView>
+            android:textAlignment="center"
+            android:textSize="22sp"></TextView>
 
         <TextView
             android:id="@+id/tv_deptor_money"
@@ -27,8 +27,17 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text=""
-            android:textAlignment="textEnd"
-            android:textSize="18sp"></TextView>
+            android:textAlignment="center"
+            android:textSize="22sp"></TextView>
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_deptor_choise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="22sp" />
 
 </LinearLayout>
