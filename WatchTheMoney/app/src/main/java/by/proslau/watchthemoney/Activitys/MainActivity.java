@@ -1,6 +1,7 @@
 package by.proslau.watchthemoney.Activitys;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.View;
@@ -20,10 +21,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
+import by.proslau.watchthemoney.dialog.BudgetDialog;
 import by.proslau.watchthemoney.dialog.DialogCategory;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
+
+    SharedPreferences sPref;
+    private static final String BUDGET = "budget";
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +53,19 @@ public class MainActivity extends AppCompatActivity
         registerForContextMenu(addMainButton);
         registerForContextMenu(deleteMainButton);
 
-        ListView listView = (ListView) findViewById(R.id.main_list_view);
+        textView = (TextView) findViewById(R.id.tv_main_start_balance_num);
+        loadText();
+
+        Button btnUpload = (Button) findViewById(R.id.main_start_balance_upload);
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadText();
+                Toast.makeText(getBaseContext(), "Upload", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /*ListView listView = (ListView) findViewById(R.id.main_list_view);
         final String[] catNames = new String[] {
                 "Рыжик", "Барсик", "Мурзик", "Мурка", "Васька",
                 "Томасина", "Кристина", "Пушок", "Дымка", "Кузя",
@@ -65,8 +83,17 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), ((TextView) itemClicked).getText(),
                         Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
+
+    void loadText() {
+        sPref = getPreferences(MODE_PRIVATE);
+        Float savedText = sPref.getFloat(BUDGET, 0);
+        String a = savedText.toString();
+        textView.setText(a);
+        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View view,
@@ -95,6 +122,8 @@ public class MainActivity extends AppCompatActivity
                 dialog.show(getFragmentManager(), "first");
                 break;
             case 2:
+                BudgetDialog budgetDialog = new BudgetDialog();
+                budgetDialog.show(getFragmentManager(), "budget");
                 break;
             case 3:
                 DialogCategory dialogDelete = new DialogCategory();
