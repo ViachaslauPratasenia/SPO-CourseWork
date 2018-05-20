@@ -15,4 +15,17 @@
         <item>Вы должны</item>
         <item>Вам должны</item>
     </string-array>
+
+    <string-array name="category_list">
+        <item>Еда</item>
+        <item>Дом</item>
+        <item>Одежда и обувь</item>
+        <item>Хобби</item>
+        <item>Лекарства</item>
+        <item>Интернет</item>
+        <item>Образование</item>
+        <item>Путешествия</item>
+        <item>Телефонная связь</item>
+        <item>Развлечения</item>
+    </string-array>
 </resources>

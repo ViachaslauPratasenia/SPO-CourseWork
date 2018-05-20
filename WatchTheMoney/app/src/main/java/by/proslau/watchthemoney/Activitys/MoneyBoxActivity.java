@@ -67,7 +67,7 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
         super.onCreateContextMenu(menu, view, contextMenuInfo);
         menu.add(0, CM_DELETE_ID, 0, "Удалить запись");
     }
-    //ДОБАВИТЬ КОНТАКТЫ
+
     @Override
     public boolean onContextItemSelected(MenuItem item){
         if(item.getItemId() == CM_DELETE_ID){

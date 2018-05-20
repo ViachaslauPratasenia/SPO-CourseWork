@@ -6,9 +6,11 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,15 +19,17 @@ import java.util.Calendar;
 import by.proslau.watchthemoney.R;
 
 /**
- * Created by user on 10.05.2018.
+ * Created by user on 19.05.2018.
  */
 
-public class InputMoneyBoxActivity extends Activity implements View.OnClickListener{
+public class InputCostActivity extends Activity implements View.OnClickListener{
     EditText etMoney;
     Button btnOK;
     Button btnChoiseData;
     TextView textView;
     TextView editTextNote;
+    Spinner spinner;
+    int spinnerPosition;
 
     Calendar calendar = Calendar.getInstance();
 
@@ -37,23 +41,34 @@ public class InputMoneyBoxActivity extends Activity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.input_money_box);
+        setContentView(R.layout.input_cost_activity);
 
-        etMoney = (EditText) findViewById(R.id.et_money_box_money);
-        btnOK = (Button) findViewById(R.id.input_money_box_add);
-        btnChoiseData = (Button) findViewById(R.id.money_box_choise_date);
+        etMoney = (EditText) findViewById(R.id.et_cost_money);
+        btnOK = (Button) findViewById(R.id.input_cost_add);
+        btnChoiseData = (Button) findViewById(R.id.cost_choise_date);
+        textView = (TextView) findViewById(R.id.tv_cost_choise_date);
+        editTextNote = (EditText) findViewById(R.id.et_cost_note);
+        spinner = (Spinner) findViewById(R.id.spinner_input_cost);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinnerPosition = i + 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         btnOK.setOnClickListener(this);
         btnChoiseData.setOnClickListener(this);
-        textView = (TextView) findViewById(R.id.tv_money_box_choise_date);
-        editTextNote = (TextView) findViewById(R.id.et_money_box_note);
-
     }
 
     @Override
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()){
-            case R.id.input_money_box_add:
+            case R.id.input_cost_add:
                 try {
                     if(etMoney.getText().toString().equals("") && textView.getText().toString().equals("")){
                         Toast.makeText(this, "Введите сумму и дату", Toast.LENGTH_LONG).show();
@@ -63,6 +78,7 @@ public class InputMoneyBoxActivity extends Activity implements View.OnClickListe
                         intent.putExtra("money", Double.parseDouble(etMoney.getText().toString()));
                         intent.putExtra("date", inputDate);
                         intent.putExtra("note", editTextNote.getText().toString());
+                        intent.putExtra("category", spinnerPosition);
                         setResult(RESULT_OK, intent);
                         finish();
                     }
@@ -70,7 +86,7 @@ public class InputMoneyBoxActivity extends Activity implements View.OnClickListe
                 } catch (Exception e) {
                     Toast.makeText(this, "Неправильно введено число", Toast.LENGTH_LONG).show();
                 }
-            case R.id.money_box_choise_date:
+            case R.id.cost_choise_date:
                 showDialog(DIALOG_DATE);
                 break;
         }

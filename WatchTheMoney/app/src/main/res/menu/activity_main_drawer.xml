@@ -17,6 +17,10 @@
             android:id="@+id/money_box"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Копилка" />
+        <item
+            android:id="@+id/category"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Категории" />
     </group>
 
 </menu>

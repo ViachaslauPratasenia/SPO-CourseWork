@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import by.proslau.watchthemoney.R;
 
 /**
@@ -25,10 +27,12 @@ public class InputBirthdaysActivity extends Activity implements View.OnClickList
     Button btnAddContact;
     TextView textView;
 
+    Calendar calendar = Calendar.getInstance();
+
     int DIALOG_DATE = 1;
-    int myYear = 2018;
-    int myMonth = 00;
-    int myDay = 01;
+    int myYear = calendar.get(Calendar.YEAR);
+    int myMonth = calendar.get(Calendar.MONTH);
+    int myDay = calendar.get(Calendar.DAY_OF_MONTH);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
