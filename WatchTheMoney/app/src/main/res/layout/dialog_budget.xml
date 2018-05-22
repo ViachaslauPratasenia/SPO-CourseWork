@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="Введите бюджет"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/et_dialog_budget"
@@ -36,25 +36,53 @@
                 android:inputType="numberDecimal"
                 android:textAlignment="center" />
 
-            <LinearLayout
+            <Button
+                android:id="@+id/budget_dialog_add"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Добавить"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp" />
 
-                <Button
-                    android:id="@+id/budget_dialog_add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Add" />
+            <Button
+                android:id="@+id/budget_dialog_sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Отнять"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp" />
 
-                <Button
-                    android:id="@+id/budget_dialog_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Cancel" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/budget_dialog_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Установить начальный бюджет"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/budget_dialog_reset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="сброс бюджета"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/budget_dialog_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="закрыть"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </RelativeLayout>

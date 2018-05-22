@@ -24,36 +24,68 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class BudgetDialog extends DialogFragment implements View.OnClickListener {
     SharedPreferences sPref;
-    private static final String BUDGET = "budget";
+    private static final String BUDGET = "start_budget";
+    private static final String CURRENT_BUDGET = "current_budget";
+    private static final String SPENT_BUDGET = "spent_budget";
     EditText text;
-
-    void saveText() {
-        sPref = getActivity().getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putFloat(BUDGET, (float)Double.parseDouble(text.getText().toString()));
-        ed.commit();
-        Toast.makeText(getContext(), "Text saved", Toast.LENGTH_SHORT).show();
-    }
+    double num;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getDialog().setTitle("Title!");
+        getDialog().setTitle("Budget");
         View v = inflater.inflate(R.layout.dialog_budget, null);
         text = (EditText) v.findViewById(R.id.et_dialog_budget);
         //v.findViewById(R.id.btnYes).setOnClickListener(this);
         v.findViewById(R.id.budget_dialog_add).setOnClickListener(this);
         v.findViewById(R.id.budget_dialog_cancel).setOnClickListener(this);
+        v.findViewById(R.id.budget_dialog_sub).setOnClickListener(this);
+        v.findViewById(R.id.budget_dialog_set).setOnClickListener(this);
+        v.findViewById(R.id.budget_dialog_reset).setOnClickListener(this);
         return v;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+
             case R.id.budget_dialog_add:
-                saveText();
-                dismiss();
+                try {
+                    num = Double.parseDouble(text.getText().toString());
+                    addBalance(num);
+                    Toast.makeText(getContext(), "Потяните для обновления", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.budget_dialog_sub:
+                try {
+                    num = Double.parseDouble(text.getText().toString());
+                    subBalance(num);
+                    Toast.makeText(getContext(), "Потяните для обновления", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.budget_dialog_cancel:
+                dismiss();
+                break;
+            case R.id.budget_dialog_set:
+                try {
+                    num = Double.parseDouble(text.getText().toString());
+                    saveStartBalance(num);
+                    saveCurrentBalance(num);
+                    saveSpentResetBalance();
+                    dismiss();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.budget_dialog_reset:
+                saveStartBalance(0);
+                saveCurrentBalance(0);
+                saveSpentResetBalance();
                 dismiss();
                 break;
         }
@@ -65,6 +97,55 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
 
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
+    }
+
+    void saveStartBalance(double num) {
+        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(BUDGET, num + "");
+        ed.commit();
+    }
+
+    void saveSpentResetBalance(){
+        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(SPENT_BUDGET, 0 + "");
+        ed.commit();
+    }
+
+    void saveCurrentBalance(double num){
+        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(CURRENT_BUDGET, num + "");
+        ed.commit();
+    }
+
+    void addBalance(double num){
+        double temp;
+        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        try {
+            temp = Double.parseDouble(sPref.getString(CURRENT_BUDGET, ""));
+            temp += num;
+            ed.putString(CURRENT_BUDGET, temp + "");
+            ed.commit();
+        } catch (NumberFormatException e) {
+            Toast.makeText(getContext(), "Ошибка", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void subBalance(double num){
+        double temp;
+        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        try {
+            temp = Double.parseDouble(sPref.getString(CURRENT_BUDGET, ""));
+            temp -= num;
+            ed.putString(CURRENT_BUDGET, temp + "");
+            ed.commit();
+        } catch (NumberFormatException e) {
+            Toast.makeText(getContext(), "Ошибка", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

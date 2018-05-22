@@ -2,7 +2,10 @@ package by.proslau.watchthemoney.Activitys;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,11 +28,28 @@ import by.proslau.watchthemoney.dialog.BudgetDialog;
 import by.proslau.watchthemoney.dialog.DialogCategory;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
 
     SharedPreferences sPref;
-    private static final String BUDGET = "budget";
-    TextView textView;
+
+    private static final String BUDGET = "start_budget";
+    private static final String CURRENT_BUDGET = "current_budget";
+    private static final String SPENT_BUDGET = "spent_budget";
+
+    TextView textViewStartBalance;
+    TextView textViewSpentBalance;
+    TextView textViewCurrentBalance;
+
+    Button btnChangeStartBalance;
+    Button btnStartBalanceUpload;
+    Button btnSpentBalanceUpload;
+    Button btnCurrentBalanceUpload;
+
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    double startBalance;
+    double currentBalance;
+    double spentBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,96 +67,99 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Button addMainButton = (Button) findViewById(R.id.add_main_button);
-        Button deleteMainButton = (Button) findViewById(R.id.delete_main_button);
+        textViewStartBalance = (TextView) findViewById(R.id.tv_main_start_balance_num);
+        textViewSpentBalance = (TextView) findViewById(R.id.tv_main_spent_balance_num);
+        textViewCurrentBalance = (TextView) findViewById(R.id.tv_main_current_balance_num);
 
-        registerForContextMenu(addMainButton);
-        registerForContextMenu(deleteMainButton);
 
-        textView = (TextView) findViewById(R.id.tv_main_start_balance_num);
-        loadText();
+        btnStartBalanceUpload = (Button) findViewById(R.id.main_start_balance_upload);
+        btnStartBalanceUpload.setOnClickListener(this);
 
-        Button btnUpload = (Button) findViewById(R.id.main_start_balance_upload);
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadText();
-                Toast.makeText(getBaseContext(), "Upload", Toast.LENGTH_SHORT).show();
-            }
-        });
+        btnSpentBalanceUpload = (Button) findViewById(R.id.main_spent_balance_upload);
+        btnSpentBalanceUpload.setOnClickListener(this);
 
-        /*ListView listView = (ListView) findViewById(R.id.main_list_view);
-        final String[] catNames = new String[] {
-                "Рыжик", "Барсик", "Мурзик", "Мурка", "Васька",
-                "Томасина", "Кристина", "Пушок", "Дымка", "Кузя",
-                "Китти", "Масяня", "Симба"
-        };
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, catNames);
+        btnCurrentBalanceUpload = (Button) findViewById(R.id.main_current_balance_upload);
+        btnCurrentBalanceUpload.setOnClickListener(this);
 
-        listView.setAdapter(adapter);
+        btnChangeStartBalance = (Button) findViewById(R.id.main_change_start_balance);
+        btnChangeStartBalance.setOnClickListener(this);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
-                                    long id) {
-                Toast.makeText(getApplicationContext(), ((TextView) itemClicked).getText(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });*/
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.main_swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.BLUE, Color.GREEN);
+
+
+        loadStartBalanceNum();
+        loadCurrentBalanceNum();
+        loadSpentBalanceNum();
+
     }
 
-    void loadText() {
+    void loadStartBalanceNum() {
         sPref = getPreferences(MODE_PRIVATE);
-        Float savedText = sPref.getFloat(BUDGET, 0);
-        String a = savedText.toString();
-        textView.setText(a);
-        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
-    }
-
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View view,
-                                    ContextMenu.ContextMenuInfo contextMenuInfo){
-        switch (view.getId()){
-            case R.id.add_main_button:
-                menu.add(0, 1,0,"Добавить категорию");
-                menu.add(0,2,0,"Добавить бюджет");
-                break;
-            case R.id.delete_main_button:
-                menu.add(0,3,0,"Удалить категорию");
-                menu.add(0,4,0,"Удалить из бюджета");
-                break;
-            case R.id.arrears:
-                menu.add(0,5,0, "Вам должны");
-                menu.add(0,6,0,"Вы должны");
-                break;
+        String a = sPref.getString(BUDGET, "");
+        try {
+            startBalance = Double.parseDouble(a);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
         }
+        textViewStartBalance.setText(startBalance + " $");
+    }
+
+    void loadCurrentBalanceNum(){
+        sPref = getPreferences(MODE_PRIVATE);
+        String a = sPref.getString(CURRENT_BUDGET, "");
+        try{
+            currentBalance = Double.parseDouble(a);
+        }catch (NumberFormatException e){
+            Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
+        }
+        textViewCurrentBalance.setText(currentBalance + " $");
+    }
+
+    void loadSpentBalanceNum(){
+        sPref = getPreferences(MODE_PRIVATE);
+        String a = sPref.getString(SPENT_BUDGET, "");
+        try{
+            spentBalance = Double.parseDouble(a);
+        }catch (NumberFormatException e){
+            Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
+        }
+        textViewSpentBalance.setText(spentBalance + " $");
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case 1:
-                DialogCategory dialog = new DialogCategory();
-                dialog.show(getFragmentManager(), "first");
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.main_start_balance_upload:
+                loadStartBalanceNum();
                 break;
-            case 2:
+            case R.id.main_spent_balance_upload:
+                loadSpentBalanceNum();
+                break;
+            case R.id.main_current_balance_upload:
+                loadCurrentBalanceNum();
+                break;
+
+            case R.id.main_change_start_balance:
                 BudgetDialog budgetDialog = new BudgetDialog();
                 budgetDialog.show(getFragmentManager(), "budget");
                 break;
-            case 3:
-                DialogCategory dialogDelete = new DialogCategory();
-                dialogDelete.show(getFragmentManager(), "second");
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
         }
-        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Отменяем анимацию обновления
+                swipeRefreshLayout.setRefreshing(false);
+                loadStartBalanceNum();
+                loadSpentBalanceNum();
+                loadCurrentBalanceNum();
+            }
+        }, 500);
     }
 
     @Override
@@ -196,4 +219,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }
