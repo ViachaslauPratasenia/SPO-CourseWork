@@ -2,6 +2,7 @@ package by.proslau.watchthemoney.Activitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
 import by.proslau.watchthemoney.database.DBHelper;
@@ -27,6 +29,14 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
     DBMoneyBoxHelper dbMoneyBoxHelper;
     SimpleCursorAdapter simpleCursorAdapter;
     Cursor cursor;
+
+    SharedPreferences sharedPreferences;
+    private static final String APP_PREFERENCE = "WTMPreference";
+    private static final String CURRENT_BUDGET = "current_budget";
+    private static final String SPENT_BUDGET = "spent_budget";
+
+    double currentBalance;
+    double spentBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +95,27 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
         double money = data.getDoubleExtra("money", 0);
         String date = data.getStringExtra("date");
         String note = data.getStringExtra("note");
+        setPreference(money);
         dbMoneyBoxHelper.addRec(money, date, note);
         cursor.requery();
+    }
+
+    public void setPreference(double money){
+        sharedPreferences = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
+        String curr = sharedPreferences.getString(CURRENT_BUDGET, "");
+        String spent = sharedPreferences.getString(SPENT_BUDGET, "");
+        try{
+            currentBalance = Double.parseDouble(curr);
+            spentBalance = Double.parseDouble(spent);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            spentBalance += money;
+            currentBalance -= money;
+            editor.putString(CURRENT_BUDGET, currentBalance + "");
+            editor.putString(SPENT_BUDGET, spentBalance + "");
+            editor.commit();
+        }catch (NumberFormatException e){
+            Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();
+        }
     }
 
     protected void onDestroy(){

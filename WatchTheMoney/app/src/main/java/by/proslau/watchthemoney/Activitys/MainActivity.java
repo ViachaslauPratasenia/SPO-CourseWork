@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
 
     SharedPreferences sPref;
 
+    private static final String APP_PREFERENCE = "WTMPreference";
     private static final String BUDGET = "start_budget";
     private static final String CURRENT_BUDGET = "current_budget";
     private static final String SPENT_BUDGET = "spent_budget";
@@ -96,36 +97,36 @@ public class MainActivity extends AppCompatActivity
     }
 
     void loadStartBalanceNum() {
-        sPref = getPreferences(MODE_PRIVATE);
+        sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         String a = sPref.getString(BUDGET, "");
         try {
             startBalance = Double.parseDouble(a);
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
         }
-        textViewStartBalance.setText(startBalance + " $");
+        textViewStartBalance.setText(startBalance + " б.р.");
     }
 
     void loadCurrentBalanceNum(){
-        sPref = getPreferences(MODE_PRIVATE);
+        sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         String a = sPref.getString(CURRENT_BUDGET, "");
         try{
             currentBalance = Double.parseDouble(a);
         }catch (NumberFormatException e){
             Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
         }
-        textViewCurrentBalance.setText(currentBalance + " $");
+        textViewCurrentBalance.setText(currentBalance + " б.р.");
     }
 
     void loadSpentBalanceNum(){
-        sPref = getPreferences(MODE_PRIVATE);
+        sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         String a = sPref.getString(SPENT_BUDGET, "");
         try{
             spentBalance = Double.parseDouble(a);
         }catch (NumberFormatException e){
             Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
         }
-        textViewSpentBalance.setText(spentBalance + " $");
+        textViewSpentBalance.setText(spentBalance + " б.р.");
     }
 
     @Override

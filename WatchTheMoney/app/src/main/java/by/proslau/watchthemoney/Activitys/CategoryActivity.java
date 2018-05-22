@@ -3,6 +3,7 @@ package by.proslau.watchthemoney.Activitys;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SimpleCursorTreeAdapter;
+import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
 import by.proslau.watchthemoney.database.DBCategoryHelper;
@@ -27,6 +29,14 @@ public class CategoryActivity extends Activity implements View.OnClickListener{
     DBCategoryHelper db;
     Cursor cursor;
     Button btnAdd;
+
+    SharedPreferences sharedPreferences;
+    private static final String APP_PREFERENCE = "WTMPreference";
+    private static final String CURRENT_BUDGET = "current_budget";
+    private static final String SPENT_BUDGET = "spent_budget";
+
+    double currentBalance;
+    double spentBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -100,8 +110,27 @@ public class CategoryActivity extends Activity implements View.OnClickListener{
         String date = data.getStringExtra("date");
         String note = data.getStringExtra("note");
         int category = data.getIntExtra("category", 0);
+        setPreference(money);
         db.addRec(money, date, note, category);
         cursor.requery();
+    }
+
+    public void setPreference(double money){
+        sharedPreferences = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
+        String curr = sharedPreferences.getString(CURRENT_BUDGET, "");
+        String spent = sharedPreferences.getString(SPENT_BUDGET, "");
+        try{
+            currentBalance = Double.parseDouble(curr);
+            spentBalance = Double.parseDouble(spent);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            spentBalance += money;
+            currentBalance -= money;
+            editor.putString(CURRENT_BUDGET, currentBalance + "");
+            editor.putString(SPENT_BUDGET, spentBalance + "");
+            editor.commit();
+        }catch (NumberFormatException e){
+            Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();
+        }
     }
 
     class MyAdapter extends SimpleCursorTreeAdapter{

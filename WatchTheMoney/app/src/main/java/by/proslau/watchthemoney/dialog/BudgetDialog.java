@@ -24,6 +24,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class BudgetDialog extends DialogFragment implements View.OnClickListener {
     SharedPreferences sPref;
+    private static final String APP_PREFERENCE = "WTMPreference";
     private static final String BUDGET = "start_budget";
     private static final String CURRENT_BUDGET = "current_budget";
     private static final String SPENT_BUDGET = "spent_budget";
@@ -100,21 +101,21 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
     }
 
     void saveStartBalance(double num) {
-        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        sPref = getActivity().getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(BUDGET, num + "");
         ed.commit();
     }
 
     void saveSpentResetBalance(){
-        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        sPref = getActivity().getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(SPENT_BUDGET, 0 + "");
         ed.commit();
     }
 
     void saveCurrentBalance(double num){
-        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        sPref = getActivity().getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(CURRENT_BUDGET, num + "");
         ed.commit();
@@ -122,7 +123,7 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
 
     void addBalance(double num){
         double temp;
-        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        sPref = getActivity().getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         try {
             temp = Double.parseDouble(sPref.getString(CURRENT_BUDGET, ""));
@@ -136,7 +137,7 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
 
     void subBalance(double num){
         double temp;
-        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        sPref = getActivity().getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         try {
             temp = Double.parseDouble(sPref.getString(CURRENT_BUDGET, ""));
