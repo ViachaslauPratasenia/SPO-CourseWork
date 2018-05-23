@@ -42,6 +42,12 @@ public class DBMoneyBoxHelper {
         sqLiteDatabase.insert(DBHelper.DB_MONEYBOX_TABLE, null, contentValues);
     }
 
+    public Cursor getMoney(long id){
+        return sqLiteDatabase.query(DBHelper.DB_MONEYBOX_TABLE, new String[]{DBHelper.COLUMN_MONEYBOX_MONEY},
+                DBHelper.COLUMN_MONEYBOX_ID + " = " + id,
+                null, null, null, null);
+    }
+
     public void delRec(long id){
         sqLiteDatabase.delete(DBHelper.DB_MONEYBOX_TABLE, DBHelper.COLUMN_MONEYBOX_ID + " = " + id, null);
     }

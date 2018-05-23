@@ -29,14 +29,17 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
     DBMoneyBoxHelper dbMoneyBoxHelper;
     SimpleCursorAdapter simpleCursorAdapter;
     Cursor cursor;
+    Cursor delPreference;
 
     SharedPreferences sharedPreferences;
     private static final String APP_PREFERENCE = "WTMPreference";
     private static final String CURRENT_BUDGET = "current_budget";
     private static final String SPENT_BUDGET = "spent_budget";
+    private static final String MONEY_BOX_BUDGET = "money_box_budget";
 
     double currentBalance;
     double spentBalance;
+    double moneyBoxBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,10 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
     public boolean onContextItemSelected(MenuItem item){
         if(item.getItemId() == CM_DELETE_ID){
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            delPreference = dbMoneyBoxHelper.getMoney(acmi.id);
+            delPreference.moveToFirst();
+            double num = delPreference.getDouble(0);
+            setPreference(num, 0);
             dbMoneyBoxHelper.delRec(acmi.id);
             cursor.requery();
             return true;
@@ -95,24 +102,44 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
         double money = data.getDoubleExtra("money", 0);
         String date = data.getStringExtra("date");
         String note = data.getStringExtra("note");
-        setPreference(money);
+        setPreference(money, 1);
         dbMoneyBoxHelper.addRec(money, date, note);
         cursor.requery();
     }
 
-    public void setPreference(double money){
+    public void setPreference(double money, int check){
         sharedPreferences = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         String curr = sharedPreferences.getString(CURRENT_BUDGET, "");
         String spent = sharedPreferences.getString(SPENT_BUDGET, "");
+        String mbox = sharedPreferences.getString(MONEY_BOX_BUDGET, "");
         try{
-            currentBalance = Double.parseDouble(curr);
-            spentBalance = Double.parseDouble(spent);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            spentBalance += money;
-            currentBalance -= money;
-            editor.putString(CURRENT_BUDGET, currentBalance + "");
-            editor.putString(SPENT_BUDGET, spentBalance + "");
-            editor.commit();
+            if(check == 1){
+                currentBalance = Double.parseDouble(curr);
+                spentBalance = Double.parseDouble(spent);
+                moneyBoxBalance = Double.parseDouble(mbox);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                spentBalance += money;
+                currentBalance -= money;
+                moneyBoxBalance += money;
+                editor.putString(CURRENT_BUDGET, currentBalance + "");
+                editor.putString(SPENT_BUDGET, spentBalance + "");
+                editor.putString(MONEY_BOX_BUDGET, moneyBoxBalance + "");
+                editor.commit();
+            }
+            else if(check == 0){
+                currentBalance = Double.parseDouble(curr);
+                spentBalance = Double.parseDouble(spent);
+                moneyBoxBalance = Double.parseDouble(mbox);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                spentBalance -= money;
+                currentBalance += money;
+                moneyBoxBalance -= money;
+                editor.putString(CURRENT_BUDGET, currentBalance + "");
+                editor.putString(SPENT_BUDGET, spentBalance + "");
+                editor.putString(MONEY_BOX_BUDGET, moneyBoxBalance + "");
+                editor.commit();
+            }
+
         }catch (NumberFormatException e){
             Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();
         }

@@ -30,14 +30,15 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
     DBDebtorHelper db;
     SimpleCursorAdapter simpleCursorAdapter;
     Cursor cursor;
+    Cursor cursorPref;
 
     SharedPreferences sharedPreferences;
     private static final String APP_PREFERENCE = "WTMPreference";
-    private static final String CURRENT_BUDGET = "current_budget";
-    private static final String SPENT_BUDGET = "spent_budget";
+    private static final String YOUR_DEPTS_BUDGET = "your_depts_budget";
+    private static final String DEPT_BUDGET = "dept_budget";
 
-    double currentBalance;
-    double spentBalance;
+    double yourDepts;
+    double depts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -101,6 +102,13 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
     public boolean onContextItemSelected(MenuItem item){
         if(item.getItemId() == CM_DELETE_ID){
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+            cursorPref = db.getMoneyDeptor(acmi.id);
+            cursorPref.moveToFirst();
+            double money = cursorPref.getDouble(cursorPref.getColumnIndex(DBHelper.COLUMN_DEPTOR_MONEY));
+            String choice = cursorPref.getString(cursorPref.getColumnIndex(DBHelper.COLUMN_DEPTOR_CHOISE));
+            deletePreference(money, choice);
+
             db.delRec(acmi.id);
             cursor.requery();
             return true;
@@ -122,29 +130,67 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
         String name = data.getStringExtra("name");
         double money = data.getDoubleExtra("money",0);
         String check = data.getStringExtra("choise");
-        //setPreference(money);
+        if(check.equals("Вы должны")){
+            setPreference(money, 1);
+        }
+        else if(check.equals("Вам должны")){
+            setPreference(money, 0);
+        }
+        else Toast.makeText(this, "Возникла ошибка", Toast.LENGTH_SHORT).show();
+
         db.addRec(name, money, check);
         cursor.requery();
     }
 
-    /*public void setPreference(double money){
+    public void setPreference(double money, int check){
         sharedPreferences = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
-        String curr = sharedPreferences.getString(CURRENT_BUDGET, "");
-        String spent = sharedPreferences.getString(SPENT_BUDGET, "");
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         try{
-            currentBalance = Double.parseDouble(curr);
-            spentBalance = Double.parseDouble(spent);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            spentBalance += money;
-            currentBalance -= money;
-            editor.putString(CURRENT_BUDGET, currentBalance + "");
-            editor.putString(SPENT_BUDGET, spentBalance + "");
-            editor.commit();
+            if(check == 1){
+                String your = sharedPreferences.getString(YOUR_DEPTS_BUDGET, "");
+                yourDepts = Double.parseDouble(your);
+                yourDepts += money;
+                editor.putString(YOUR_DEPTS_BUDGET, yourDepts + "");
+                editor.commit();
+            }
+            else if(check == 0){
+                String deptsStr = sharedPreferences.getString(DEPT_BUDGET, "");
+                depts = Double.parseDouble(deptsStr);
+                depts += money;
+                editor.putString(DEPT_BUDGET, depts + "");
+                editor.commit();
+            }
         }catch (NumberFormatException e){
             Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
+    public void deletePreference(double money, String choise){
+        sharedPreferences = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        try{
+            if(choise.equals("Вы должны")){
+                String your = sharedPreferences.getString(YOUR_DEPTS_BUDGET, "");
+                yourDepts = Double.parseDouble(your);
+                yourDepts -= money;
+                editor.putString(YOUR_DEPTS_BUDGET, yourDepts + "");
+                editor.commit();
+            }
+            else if(choise.equals("Вам должны")){
+                String deptsStr = sharedPreferences.getString(DEPT_BUDGET, "");
+                depts = Double.parseDouble(deptsStr);
+                depts -= money;
+                editor.putString(DEPT_BUDGET, depts + "");
+                editor.commit();
+            }
+        }catch (NumberFormatException e){
+            Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     protected void onDestroy(){
         super.onDestroy();
         db.close();

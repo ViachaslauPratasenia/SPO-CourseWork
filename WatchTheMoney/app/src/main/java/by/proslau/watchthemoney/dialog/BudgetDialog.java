@@ -28,6 +28,9 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
     private static final String BUDGET = "start_budget";
     private static final String CURRENT_BUDGET = "current_budget";
     private static final String SPENT_BUDGET = "spent_budget";
+    private static final String MONEY_BOX_BUDGET = "money_box_budget";
+    private static final String YOUR_DEPTS_BUDGET = "your_depts_budget";
+    private static final String DEPT_BUDGET = "dept_budget";
     EditText text;
     double num;
 
@@ -78,6 +81,10 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
                     saveStartBalance(num);
                     saveCurrentBalance(num);
                     saveSpentResetBalance();
+                    saveMoneyBoxBalance();
+                    saveYourDeptsBalance();
+                    saveDeptsBalance();
+                    Toast.makeText(getContext(), "Потяните для обновления", Toast.LENGTH_SHORT).show();
                     dismiss();
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
@@ -87,6 +94,10 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
                 saveStartBalance(0);
                 saveCurrentBalance(0);
                 saveSpentResetBalance();
+                saveMoneyBoxBalance();
+                saveYourDeptsBalance();
+                saveDeptsBalance();
+                Toast.makeText(getContext(), "Потяните для обновления", Toast.LENGTH_SHORT).show();
                 dismiss();
                 break;
         }
@@ -104,6 +115,27 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
         sPref = getActivity().getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(BUDGET, num + "");
+        ed.commit();
+    }
+
+    void saveMoneyBoxBalance() {
+        sPref = getActivity().getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(MONEY_BOX_BUDGET, 0 + "");
+        ed.commit();
+    }
+
+    void saveYourDeptsBalance() {
+        sPref = getActivity().getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(YOUR_DEPTS_BUDGET, 0 + "");
+        ed.commit();
+    }
+
+    void saveDeptsBalance() {
+        sPref = getActivity().getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(DEPT_BUDGET, 0 + "");
         ed.commit();
     }
 

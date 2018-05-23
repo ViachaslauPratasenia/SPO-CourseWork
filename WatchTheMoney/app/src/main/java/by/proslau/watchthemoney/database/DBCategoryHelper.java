@@ -72,6 +72,11 @@ public class DBCategoryHelper {
         return mDB.query(CATEGORY_TABLE, null, null, null, null, null, null);
     }
 
+    public Cursor getMoney(long id){
+        return mDB.query(COSTS_TABLE, new String[]{COSTS_COLUMN_MONEY}, COSTS_COLUMN_ID + " = " + id,
+            null, null, null, null);
+    }
+
     public Cursor getCosts(long categoryID){
         return mDB.query(COSTS_TABLE, null, COSTS_COLUMN_CATEGORY + " = " + categoryID,
                 null, null, null, null);
@@ -89,13 +94,6 @@ public class DBCategoryHelper {
     public void delRec(long id){
         mDB.delete(COSTS_TABLE, COSTS_COLUMN_ID + " = " + id, null);
     }
-
-    /*public Cursor getInfoFromCategory(String table, String column, long categoryID){
-        return mDB.query(table, null, column + " = " + categoryID,
-                null, null,null, null);
-    }*/
-
-
 
     private class DBCHelper extends SQLiteOpenHelper {
         public DBCHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,

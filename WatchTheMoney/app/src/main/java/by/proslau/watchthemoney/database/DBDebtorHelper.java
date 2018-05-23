@@ -57,11 +57,13 @@ public class DBDebtorHelper {
         return sqLiteDatabase.query(DBHelper.DB_DEPTOR_TABLE, null, null, null, null, null, null);
     }
 
-    public Cursor getData(long num){
-        return sqLiteDatabase.query(DBHelper.DB_DEPTOR_TABLE, null, "choise = " + num, null, null, null, null);
+    public Cursor getMoneyDeptor(long id){
+        return sqLiteDatabase.query(DBHelper.DB_DEPTOR_TABLE, new String[]{DBHelper.COLUMN_DEPTOR_MONEY, DBHelper.COLUMN_DEPTOR_CHOISE},
+                DBHelper.COLUMN_DEPTOR_ID + " = " + id,
+                null, null, null, null);
     }
 
-    public void addRec(String text, double money, String check){
+        public void addRec(String text, double money, String check){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.COLUMN_DEPTOR_NAME, text);
         contentValues.put(DBHelper.COLUMN_DEPTOR_MONEY, money);

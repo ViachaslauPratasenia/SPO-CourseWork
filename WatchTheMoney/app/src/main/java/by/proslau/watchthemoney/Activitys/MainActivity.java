@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.ContextMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,16 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
 import by.proslau.watchthemoney.dialog.BudgetDialog;
-import by.proslau.watchthemoney.dialog.DialogCategory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
@@ -36,21 +31,27 @@ public class MainActivity extends AppCompatActivity
     private static final String BUDGET = "start_budget";
     private static final String CURRENT_BUDGET = "current_budget";
     private static final String SPENT_BUDGET = "spent_budget";
+    private static final String MONEY_BOX_BUDGET = "money_box_budget";
+    private static final String YOUR_DEPTS_BUDGET = "your_depts_budget";
+    private static final String DEPT_BUDGET = "dept_budget";
 
     TextView textViewStartBalance;
     TextView textViewSpentBalance;
     TextView textViewCurrentBalance;
+    TextView textViewMoneyBoxBalance;
+    TextView textViewYourDeptsBalance;
+    TextView textViewDeptsBalance;
 
     Button btnChangeStartBalance;
-    Button btnStartBalanceUpload;
-    Button btnSpentBalanceUpload;
-    Button btnCurrentBalanceUpload;
 
     SwipeRefreshLayout swipeRefreshLayout;
 
     double startBalance;
     double currentBalance;
     double spentBalance;
+    double moneyBoxBalance;
+    double yourDeptsBalance;
+    double deptsBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,77 +72,52 @@ public class MainActivity extends AppCompatActivity
         textViewStartBalance = (TextView) findViewById(R.id.tv_main_start_balance_num);
         textViewSpentBalance = (TextView) findViewById(R.id.tv_main_spent_balance_num);
         textViewCurrentBalance = (TextView) findViewById(R.id.tv_main_current_balance_num);
-
-
-        btnStartBalanceUpload = (Button) findViewById(R.id.main_start_balance_upload);
-        btnStartBalanceUpload.setOnClickListener(this);
-
-        btnSpentBalanceUpload = (Button) findViewById(R.id.main_spent_balance_upload);
-        btnSpentBalanceUpload.setOnClickListener(this);
-
-        btnCurrentBalanceUpload = (Button) findViewById(R.id.main_current_balance_upload);
-        btnCurrentBalanceUpload.setOnClickListener(this);
+        textViewMoneyBoxBalance = (TextView) findViewById(R.id.tv_main_money_box_num);
+        textViewYourDeptsBalance = (TextView) findViewById(R.id.tv_main_your_depts_num);
+        textViewDeptsBalance = (TextView) findViewById(R.id.tv_main_depts_num);
 
         btnChangeStartBalance = (Button) findViewById(R.id.main_change_start_balance);
         btnChangeStartBalance.setOnClickListener(this);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.main_swipe_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.BLUE, Color.GREEN);
+        swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
 
 
-        loadStartBalanceNum();
-        loadCurrentBalanceNum();
-        loadSpentBalanceNum();
+        loadAll();
 
     }
 
-    void loadStartBalanceNum() {
+    void loadAll() {
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
-        String a = sPref.getString(BUDGET, "");
         try {
+            String a = sPref.getString(BUDGET, "");
             startBalance = Double.parseDouble(a);
+            a = sPref.getString(CURRENT_BUDGET, "");
+            currentBalance = Double.parseDouble(a);
+            a = sPref.getString(SPENT_BUDGET, "");
+            spentBalance = Double.parseDouble(a);
+            a = sPref.getString(MONEY_BOX_BUDGET, "");
+            moneyBoxBalance = Double.parseDouble(a);
+            a = sPref.getString(YOUR_DEPTS_BUDGET, "");
+            yourDeptsBalance = Double.parseDouble(a);
+            a = sPref.getString(DEPT_BUDGET, "");
+            deptsBalance = Double.parseDouble(a);
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
         }
         textViewStartBalance.setText(startBalance + " б.р.");
-    }
-
-    void loadCurrentBalanceNum(){
-        sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
-        String a = sPref.getString(CURRENT_BUDGET, "");
-        try{
-            currentBalance = Double.parseDouble(a);
-        }catch (NumberFormatException e){
-            Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
-        }
         textViewCurrentBalance.setText(currentBalance + " б.р.");
+        textViewSpentBalance.setText(spentBalance + " б.р.");
+        textViewMoneyBoxBalance.setText(moneyBoxBalance + " б.р.");
+        textViewYourDeptsBalance.setText(yourDeptsBalance + " б.р.");
+        textViewDeptsBalance.setText(deptsBalance + " б.р.");
     }
 
-    void loadSpentBalanceNum(){
-        sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
-        String a = sPref.getString(SPENT_BUDGET, "");
-        try{
-            spentBalance = Double.parseDouble(a);
-        }catch (NumberFormatException e){
-            Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
-        }
-        textViewSpentBalance.setText(spentBalance + " б.р.");
-    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.main_start_balance_upload:
-                loadStartBalanceNum();
-                break;
-            case R.id.main_spent_balance_upload:
-                loadSpentBalanceNum();
-                break;
-            case R.id.main_current_balance_upload:
-                loadCurrentBalanceNum();
-                break;
-
             case R.id.main_change_start_balance:
                 BudgetDialog budgetDialog = new BudgetDialog();
                 budgetDialog.show(getFragmentManager(), "budget");
@@ -156,9 +132,7 @@ public class MainActivity extends AppCompatActivity
             public void run() {
                 // Отменяем анимацию обновления
                 swipeRefreshLayout.setRefreshing(false);
-                loadStartBalanceNum();
-                loadSpentBalanceNum();
-                loadCurrentBalanceNum();
+                loadAll();
             }
         }, 500);
     }
@@ -178,6 +152,12 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Toast.makeText(this, "Потяните для обновления", Toast.LENGTH_SHORT).show();
     }
 
     @Override

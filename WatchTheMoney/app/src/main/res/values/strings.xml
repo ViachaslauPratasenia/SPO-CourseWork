@@ -10,6 +10,11 @@
     <string name="current_balance_tv">Текущий баланс</string>
     <string name="watch_the_money_application">Watch the money application</string>
     <string name="slavaprot14_gmail_com">slavaprot14@gmail.com</string>
+    <string name="current_balance_str">Текущий баланс</string>
+    <string name="money_box_str">Копилка</string>
+    <string name="your_depts_str">Ваши долги</string>
+    <string name="depts_str">Вам должны</string>
+    <string name="change_balance_Str">Установить / изменить баланс</string>
 
     <string-array name="arrears_list">
         <item>Вы должны</item>

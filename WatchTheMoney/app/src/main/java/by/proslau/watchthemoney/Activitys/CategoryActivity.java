@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ public class CategoryActivity extends Activity implements View.OnClickListener{
     ExpandableListView listView;
     DBCategoryHelper db;
     Cursor cursor;
+    Cursor cursorPref;
     Button btnAdd;
 
     SharedPreferences sharedPreferences;
@@ -92,13 +95,21 @@ public class CategoryActivity extends Activity implements View.OnClickListener{
 
     @Override
     public boolean onContextItemSelected(MenuItem item){
-        if(item.getItemId() == CM_DELETE_ID){
-            ExpandableListView.ExpandableListContextMenuInfo elcmi =
-                    (ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo();
+        try {
+            if(item.getItemId() == CM_DELETE_ID){
+                ExpandableListView.ExpandableListContextMenuInfo elcmi =
+                        (ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo();
 
-            db.delRec(elcmi.id);
-            cursor.requery();
-            return true;
+                cursorPref = db.getMoney(elcmi.id);
+                cursorPref.moveToFirst();
+                double num = cursorPref.getDouble(0);
+                setPreference(num, 0);
+                db.delRec(elcmi.id);
+                cursor.requery();
+                return true;
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Нельзя удалить из названия категории", Toast.LENGTH_SHORT).show();
         }
         return super.onContextItemSelected(item);
     }
@@ -110,24 +121,36 @@ public class CategoryActivity extends Activity implements View.OnClickListener{
         String date = data.getStringExtra("date");
         String note = data.getStringExtra("note");
         int category = data.getIntExtra("category", 0);
-        setPreference(money);
+        setPreference(money, 1);
         db.addRec(money, date, note, category);
         cursor.requery();
     }
 
-    public void setPreference(double money){
+    public void setPreference(double money, int check){
         sharedPreferences = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         String curr = sharedPreferences.getString(CURRENT_BUDGET, "");
         String spent = sharedPreferences.getString(SPENT_BUDGET, "");
         try{
-            currentBalance = Double.parseDouble(curr);
-            spentBalance = Double.parseDouble(spent);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            spentBalance += money;
-            currentBalance -= money;
-            editor.putString(CURRENT_BUDGET, currentBalance + "");
-            editor.putString(SPENT_BUDGET, spentBalance + "");
-            editor.commit();
+            if(check == 1){
+                currentBalance = Double.parseDouble(curr);
+                spentBalance = Double.parseDouble(spent);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                spentBalance += money;
+                currentBalance -= money;
+                editor.putString(CURRENT_BUDGET, currentBalance + "");
+                editor.putString(SPENT_BUDGET, spentBalance + "");
+                editor.commit();
+            }
+            else if(check == 0){
+                currentBalance = Double.parseDouble(curr);
+                spentBalance = Double.parseDouble(spent);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                spentBalance -= money;
+                currentBalance += money;
+                editor.putString(CURRENT_BUDGET, currentBalance + "");
+                editor.putString(SPENT_BUDGET, spentBalance + "");
+                editor.commit();
+            }
         }catch (NumberFormatException e){
             Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();
         }
