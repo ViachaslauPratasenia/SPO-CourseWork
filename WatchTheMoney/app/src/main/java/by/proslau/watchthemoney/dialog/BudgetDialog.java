@@ -56,7 +56,6 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
                 try {
                     num = Double.parseDouble(text.getText().toString());
                     addBalance(num);
-                    Toast.makeText(getContext(), "Потяните для обновления", Toast.LENGTH_SHORT).show();
                     dismiss();
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
@@ -66,7 +65,6 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
                 try {
                     num = Double.parseDouble(text.getText().toString());
                     subBalance(num);
-                    Toast.makeText(getContext(), "Потяните для обновления", Toast.LENGTH_SHORT).show();
                     dismiss();
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
@@ -84,7 +82,6 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
                     saveMoneyBoxBalance();
                     saveYourDeptsBalance();
                     saveDeptsBalance();
-                    Toast.makeText(getContext(), "Потяните для обновления", Toast.LENGTH_SHORT).show();
                     dismiss();
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
@@ -97,7 +94,6 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
                 saveMoneyBoxBalance();
                 saveYourDeptsBalance();
                 saveDeptsBalance();
-                Toast.makeText(getContext(), "Потяните для обновления", Toast.LENGTH_SHORT).show();
                 dismiss();
                 break;
         }

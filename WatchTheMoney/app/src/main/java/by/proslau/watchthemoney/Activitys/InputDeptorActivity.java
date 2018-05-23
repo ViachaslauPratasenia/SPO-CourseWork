@@ -78,8 +78,8 @@ public class InputDeptorActivity extends Activity implements View.OnClickListene
             case R.id.input_deptor_add:
                 try {
                     double money = Double.parseDouble(etMoney.getText().toString());
-                    if(money < 0){
-                        Toast.makeText(this, "Долг не может быть меньше нуля", Toast.LENGTH_LONG).show();
+                    if(money < 0 || money > Math.pow(10,4)){
+                        Toast.makeText(this, "Долг не может быть меньше нуля или настолько большим", Toast.LENGTH_LONG).show();
                         etMoney.setText(null);
                     }
                     else if(etName.getText().toString().equals("")){

@@ -55,18 +55,25 @@ public class InputMoneyBoxActivity extends Activity implements View.OnClickListe
         switch (view.getId()){
             case R.id.input_money_box_add:
                 try {
-                    if(etMoney.getText().toString().equals("") && textView.getText().toString().equals("")){
-                        Toast.makeText(this, "Введите сумму и дату", Toast.LENGTH_LONG).show();
+                    double num = Double.parseDouble(etMoney.getText().toString());
+                    if(num > Math.pow(10,4)){
+                        Toast.makeText(this, "Слишком много, не кажется?", Toast.LENGTH_SHORT).show();
+                        break;
                     }
                     else{
-                        String inputDate = "" + myYear + "." + myMonth + "." + myDay;
-                        intent.putExtra("money", Double.parseDouble(etMoney.getText().toString()));
-                        intent.putExtra("date", inputDate);
-                        intent.putExtra("note", editTextNote.getText().toString());
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        if(etMoney.getText().toString().equals("") && textView.getText().toString().equals("")){
+                            Toast.makeText(this, "Введите сумму и дату", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            String inputDate = "" + myYear + "." + myMonth + "." + myDay;
+                            intent.putExtra("money", num);
+                            intent.putExtra("date", inputDate);
+                            intent.putExtra("note", editTextNote.getText().toString());
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                        break;
                     }
-                    break;
                 } catch (Exception e) {
                     Toast.makeText(this, "Неправильно введено число", Toast.LENGTH_LONG).show();
                 }
