@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
@@ -45,33 +44,6 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.arrears_activity);
 
-
-
-        /*
-        cursor = db.getData(0);
-
-
-        //НЕ РАБОТАЕТ ВЫВОД ТАБЛИЦЫ В СПИННЕРЕ
-
-        spinner = (Spinner) findViewById(R.id.arrears_spinner_choise);
-        //ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(this, R.array.arrears_list, R.layout.support_simple_spinner_dropdown_item);
-        //adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        //spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                long choise = spinner.getSelectedItemId();
-                cursor = db.getData(choise);
-                cursor.requery();
-                Toast.makeText(getApplicationContext(), "num " + choise, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });*/
-
         db = new DBDebtorHelper(this);
         db.open();
 
@@ -97,7 +69,7 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
         super.onCreateContextMenu(menu, view, contextMenuInfo);
         menu.add(0, CM_DELETE_ID, 0, "Удалить запись");
     }
-    //ДОБАВИТЬ КОНТАКТЫ
+
     @Override
     public boolean onContextItemSelected(MenuItem item){
         if(item.getItemId() == CM_DELETE_ID){

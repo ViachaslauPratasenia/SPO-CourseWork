@@ -13,7 +13,7 @@
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Долги"
+            android:text="@string/arrears_str"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
-            android:text="Добавить"
+            android:text="@string/arrears_add_str"
             android:textColor="@android:color/background_light" />
 
     </LinearLayout>

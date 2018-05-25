@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Введите имя"
+            android:text="@string/input_name_str"
             android:textAlignment="center"
             android:textSize="18sp" />
 
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Имя"
+            android:hint="@string/et_name_str"
             android:inputType="textPersonName"
             android:textAlignment="center" />
 
@@ -28,13 +28,13 @@
             android:id="@+id/birthdays_add_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Добавить из контактов" />
+            android:text="@string/add_from_contact_str" />
 
         <Button
             android:id="@+id/birthays_choise_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Выберите дату" />
+            android:text="@string/choise_date_str" />
 
         <TextView
             android:id="@+id/tv_birthdays_choise_date"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:text="Добавить"
+            android:text="@string/add_str"
             android:textColor="@android:color/background_light" />
 
     </LinearLayout>

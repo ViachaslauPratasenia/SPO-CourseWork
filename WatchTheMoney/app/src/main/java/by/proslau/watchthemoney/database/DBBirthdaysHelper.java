@@ -13,19 +13,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBBirthdaysHelper {
     private static final String DB_NAME = "WTMDatabase";
     private static final int DB_BIRTHDAYS_VERSION = 1;
-    /*private static final String DB_NAME = "myDatabase";
-    private static final String DB_BIRTHDAYS_TABLE = "birthdays";
-
-
-    public static final String COLUMN_BIRTHDAYS_ID = "_id";
-    public static final String COLUMN_BIRTHDAYS_NAME = "name";
-    public static final String COLUMN_BIRTHDAYS_DATE = "bDate";
-
-    private static final String DB_CREATE = "create table " + DB_BIRTHDAYS_TABLE + "(" +
-            COLUMN_BIRTHDAYS_ID + " integer primary key autoincrement, " +
-            COLUMN_BIRTHDAYS_NAME + " text, " +
-            COLUMN_BIRTHDAYS_DATE + " text" + ");";*/
-
     private final Context context;
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
@@ -57,21 +44,4 @@ public class DBBirthdaysHelper {
     public void delRec(long id){
         sqLiteDatabase.delete(DBHelper.DB_BIRTHDAYS_TABLE, DBHelper.COLUMN_BIRTHDAYS_ID + " = " + id, null);
     }
-
-    /*private class DBHelper extends SQLiteOpenHelper {
-        public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
-            super(context, name, factory, version);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(DB_CREATE);
-            addRec("Pratasenia", "1999.04.14");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
-        }
-    }*/
 }

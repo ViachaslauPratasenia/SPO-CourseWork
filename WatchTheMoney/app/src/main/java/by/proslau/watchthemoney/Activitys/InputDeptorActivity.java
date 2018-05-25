@@ -55,20 +55,6 @@ public class InputDeptorActivity extends Activity implements View.OnClickListene
                 }
             }
         });
-        /*radioGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RadioButton rb = (RadioButton)view;
-                switch (rb.getId()){
-                    case R.id.yours_depts:
-                        check = 1;
-                        break;
-                    case R.id.depts:
-                        check = 0;
-                        break;
-                }
-            }
-        });*/
     }
 
     @Override

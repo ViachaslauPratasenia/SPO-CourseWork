@@ -16,26 +16,6 @@ import java.io.IOException;
 public class DBDebtorHelper {
     private static final String DB_NAME = "database";
     private static final int DB_VERSION = 1;
-    /*final String LOG_TAG = "myLogs";
-
-    private static final String DB_NAME = "myDatabase";
-    private static final String DB_TABLE = "arrears";
-
-
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_MONEY = "money";
-    public static final String COLUMN_NAME = "name";
-
-    //Переменная, которая хранит int как boolean. Если 0 - человек должен вам, если 1 - должны вы
-    public static final String COLUMN_CHOISE = "choise";
-
-    private static final String DB_CREATE =
-            "create table " + DB_TABLE + "(" +
-                    COLUMN_ID + " integer primary key autoincrement, " +
-                    COLUMN_NAME + " text, " +
-                    COLUMN_MONEY + " integer, " +
-                    COLUMN_CHOISE + " integer" + ");";*/
-
     private final Context context;
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
@@ -74,26 +54,4 @@ public class DBDebtorHelper {
     public void delRec(long id){
         sqLiteDatabase.delete(DBHelper.DB_DEPTOR_TABLE, DBHelper.COLUMN_DEPTOR_ID + " = " + id, null);
     }
-
-
-    /*private class DBHelper extends SQLiteOpenHelper{
-        public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
-            super(context, name, factory, version);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            Log.d(LOG_TAG, "===========");
-            db.execSQL("create table " + DB_TABLE + "(" +
-                    COLUMN_ID + " integer primary key autoincrement, " +
-                    COLUMN_NAME + " text, " +
-                    COLUMN_MONEY + " integer, " +
-                    COLUMN_CHOISE + " integer" + ");");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
-        }
-    }*/
 }

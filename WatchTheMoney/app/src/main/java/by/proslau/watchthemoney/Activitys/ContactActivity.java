@@ -33,6 +33,11 @@ public class ContactActivity extends Activity {
     ArrayList<String> stringArrayList = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     ListView listView;
+
+    private static final Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
+    private static final String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
+    private static final String HAS_PHONE_NUMBER = ContactsContract.Contacts.HAS_PHONE_NUMBER;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +89,6 @@ public class ContactActivity extends Activity {
         }
     }
 
-    private static final Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
-    private static final String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
-    private static final String HAS_PHONE_NUMBER = ContactsContract.Contacts.HAS_PHONE_NUMBER;
-
     public ArrayList<String> getContacts(){
         ArrayList<String> arrayList = new ArrayList<>();
         ContentResolver contentResolver = getContentResolver();
@@ -104,6 +105,4 @@ public class ContactActivity extends Activity {
         }
         return arrayList;
     }
-
-
 }

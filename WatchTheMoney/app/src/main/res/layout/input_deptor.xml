@@ -24,7 +24,7 @@
                 android:id="@+id/tv_arrears_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Введите имя"
+                android:text="@string/input_name_str"
                 android:textAlignment="center"
                 android:textSize="18sp" />
 
@@ -42,14 +42,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/darker_gray"
-                android:text="Добавить из контактов"
+                android:text="@string/add_from_contact_str"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_arrears_money"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Введите сумму"
+                android:text="@string/input_money_str"
                 android:textAlignment="center"
                 android:textSize="18sp" />
 
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:text="Вы должны"
+                    android:text="@string/your_dept_str"
                     android:textAlignment="textStart"
                     android:textSize="18sp" />
 
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Вам должны"
+                    android:text="@string/dept_str"
                     android:textAlignment="textStart"
                     android:textSize="18sp" />
             </RadioGroup>
@@ -91,8 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
-                android:text="Добавить"
-                android:textColor="@android:color/background_dark"
+                android:text="@string/add_str"
+                android:textColor="@android:color/background_light"
                 android:textSize="18sp" />
 
         </LinearLayout>

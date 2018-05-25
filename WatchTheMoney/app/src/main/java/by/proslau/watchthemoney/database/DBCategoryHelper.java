@@ -114,27 +114,6 @@ public class DBCategoryHelper {
             }
 
             sqLiteDatabase.execSQL(COSTS_TABLE_CREATE);
-
-            String eatName = "milk";
-            String eatDate = "today";
-            Double eatMoney = 1.2;
-            contentValues.clear();
-            contentValues.put(COSTS_COLUMN_MONEY, eatMoney);
-            contentValues.put(COSTS_COLUMN_DATE, eatDate);
-            contentValues.put(COSTS_COLUMN_NOTE, eatName);
-            contentValues.put(COSTS_COLUMN_CATEGORY, 1);
-            sqLiteDatabase.insert(COSTS_TABLE, null, contentValues);
-
-            /*sqLiteDatabase.execSQL(EAT_TABLE_CREATE);
-            sqLiteDatabase.execSQL(HOME_TABLE_CREATE);
-            sqLiteDatabase.execSQL(CLOTHING_TABLE_CREATE);
-            sqLiteDatabase.execSQL(HOBBY_TABLE_CREATE);
-            sqLiteDatabase.execSQL(MEDICAL_TABLE_CREATE);
-            sqLiteDatabase.execSQL(INTERNET_TABLE_CREATE);
-            sqLiteDatabase.execSQL(EDUCATION_TABLE_CREATE);
-            sqLiteDatabase.execSQL(TRAVEL_TABLE_CREATE);
-            sqLiteDatabase.execSQL(PHONE_TABLE_CREATE);
-            sqLiteDatabase.execSQL(RELAX_TABLE_CREATE);*/
         }
 
         @Override

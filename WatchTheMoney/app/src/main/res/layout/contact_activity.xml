@@ -12,7 +12,7 @@
             android:id="@+id/tv_contacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Контакты"
+            android:text="@string/contacts_Str"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp" />

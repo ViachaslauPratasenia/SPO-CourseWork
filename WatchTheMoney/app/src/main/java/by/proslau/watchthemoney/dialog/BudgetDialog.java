@@ -39,7 +39,6 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
         getDialog().setTitle("Budget");
         View v = inflater.inflate(R.layout.dialog_budget, null);
         text = (EditText) v.findViewById(R.id.et_dialog_budget);
-        //v.findViewById(R.id.btnYes).setOnClickListener(this);
         v.findViewById(R.id.budget_dialog_add).setOnClickListener(this);
         v.findViewById(R.id.budget_dialog_cancel).setOnClickListener(this);
         v.findViewById(R.id.budget_dialog_sub).setOnClickListener(this);
@@ -55,17 +54,24 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
             case R.id.budget_dialog_add:
                 try {
                     num = Double.parseDouble(text.getText().toString());
-                    addBalance(num);
-                    dismiss();
+                    if(num < 10000) {
+                        addBalance(num);
+                        dismiss();
+                    }else {
+                        Toast.makeText(getContext(), "Слишком большое число", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.budget_dialog_sub:
                 try {
-                    num = Double.parseDouble(text.getText().toString());
-                    subBalance(num);
-                    dismiss();
+                    if(num < 10000) {
+                        subBalance(num);
+                        dismiss();
+                    }else {
+                        Toast.makeText(getContext(), "Слишком большое число", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
                 }
@@ -76,13 +82,14 @@ public class BudgetDialog extends DialogFragment implements View.OnClickListener
             case R.id.budget_dialog_set:
                 try {
                     num = Double.parseDouble(text.getText().toString());
-                    saveStartBalance(num);
-                    saveCurrentBalance(num);
-                    saveSpentResetBalance();
-                    saveMoneyBoxBalance();
-                    saveYourDeptsBalance();
-                    saveDeptsBalance();
-                    dismiss();
+                    if(num < 100000) {
+                        saveStartBalance(num);
+                        saveCurrentBalance(num);
+                        saveSpentResetBalance();
+                        dismiss();
+                    }else {
+                        Toast.makeText(getContext(), "Слишком большое число", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Введите число", Toast.LENGTH_SHORT).show();
                 }

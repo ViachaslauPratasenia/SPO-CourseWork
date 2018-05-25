@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WatchTheMoney</string>
+    <string name="app_name">Home accounting</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -8,14 +8,36 @@
     <string name="start_balance_str">Начальный баланс</string>
     <string name="spent_balance_str">Потрачено</string>
     <string name="current_balance_tv">Текущий баланс</string>
-    <string name="watch_the_money_application">Watch the money application</string>
+    <string name="watch_the_money_application">Home accounting application</string>
     <string name="slavaprot14_gmail_com">slavaprot14@gmail.com</string>
     <string name="current_balance_str">Текущий баланс</string>
     <string name="money_box_str">Копилка</string>
     <string name="your_depts_str">Ваши долги</string>
     <string name="depts_str">Вам должны</string>
     <string name="change_balance_Str">Установить / изменить баланс</string>
-
+    <string name="arrears_str">Долги</string>
+    <string name="arrears_add_str">Добавить</string>
+    <string name="birthdays_str">Дни рождения</string>
+    <string name="birthdays_add_str">Добавить</string>
+    <string name="category_str">Категории</string>
+    <string name="category_add_str">Добавить запись</string>
+    <string name="contacts_Str">Контакты</string>
+    <string name="enter_budget_str">Введите бюджет</string>
+    <string name="edit_text_budget_str">бюджет</string>
+    <string name="add_str">Добавить</string>
+    <string name="sub_budget_str">Отнять</string>
+    <string name="set_budget_str">Установить начальный бюджет</string>
+    <string name="reset_budget_str">сброс бюджета</string>
+    <string name="close_str">закрыть</string>
+    <string name="input_name_str">Введите имя</string>
+    <string name="et_name_str">Имя</string>
+    <string name="add_from_contact_str">Добавить из контактов</string>
+    <string name="choise_date_str">Выберите дату</string>
+    <string name="input_money_str">Введите сумму</string>
+    <string name="et_money_str">Сумма</string>
+    <string name="note_str">Примечание</string>
+    <string name="your_dept_str">Вы должны</string>
+    <string name="dept_str">Вам должны</string>
     <string-array name="arrears_list">
         <item>Вы должны</item>
         <item>Вам должны</item>

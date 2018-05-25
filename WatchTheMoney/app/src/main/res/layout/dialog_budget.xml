@@ -23,7 +23,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Введите бюджет"
+                android:text="@string/enter_budget_str"
                 android:textAlignment="center"
                 android:textSize="24sp" />
 
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="бюджет"
+                android:hint="@string/edit_text_budget_str"
                 android:inputType="numberDecimal"
                 android:textAlignment="center" />
 
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="Добавить"
+                android:text="@string/add_str"
                 android:textColor="@android:color/background_light"
                 android:textSize="16sp" />
 
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="Отнять"
+                android:text="@string/sub_budget_str"
                 android:textColor="@android:color/background_light"
                 android:textSize="16sp" />
 
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="Установить начальный бюджет"
+                android:text="@string/set_budget_str"
                 android:textColor="@android:color/background_light"
                 android:textSize="16sp" />
 
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="сброс бюджета"
+                android:text="@string/reset_budget_str"
                 android:textColor="@android:color/background_light"
                 android:textSize="16sp" />
 
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="закрыть"
+                android:text="@string/close_str"
                 android:textColor="@android:color/background_light"
                 android:textSize="16sp" />
 

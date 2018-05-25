@@ -19,8 +19,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DEPTOR_ID = "_id";
     public static final String COLUMN_DEPTOR_MONEY = "money";
     public static final String COLUMN_DEPTOR_NAME = "name";
-
-    //Переменная, которая хранит int как boolean. Если 0 - человек должен вам, если 1 - должны вы
     public static final String COLUMN_DEPTOR_CHOISE = "choise";
 
     private static final String DB_CREATE_DEPTORS =
