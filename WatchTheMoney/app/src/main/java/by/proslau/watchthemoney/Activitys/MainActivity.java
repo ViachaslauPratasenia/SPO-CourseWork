@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
 
@@ -41,15 +40,6 @@ public class MainActivity extends AppCompatActivity
     TextView textViewDeptsBalance;
 
     Button btnChangeStartBalance;
-
-    SwipeRefreshLayout swipeRefreshLayout;
-
-    double startBalance;
-    double currentBalance;
-    double spentBalance;
-    double moneyBoxBalance;
-    double yourDeptsBalance;
-    double deptsBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,22 +72,13 @@ public class MainActivity extends AppCompatActivity
 
     public void loadAll() {
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
-        try {
-            String a = sPref.getString(BUDGET, "");
-            startBalance = Double.parseDouble(a);
-            a = sPref.getString(CURRENT_BUDGET, "");
-            currentBalance = Double.parseDouble(a);
-            a = sPref.getString(SPENT_BUDGET, "");
-            spentBalance = Double.parseDouble(a);
-            a = sPref.getString(MONEY_BOX_BUDGET, "");
-            moneyBoxBalance = Double.parseDouble(a);
-            a = sPref.getString(YOUR_DEPTS_BUDGET, "");
-            yourDeptsBalance = Double.parseDouble(a);
-            a = sPref.getString(DEPT_BUDGET, "");
-            deptsBalance = Double.parseDouble(a);
-        } catch (NumberFormatException e) {
-            Toast.makeText(this, "Баланс еще не добавлен", Toast.LENGTH_SHORT).show();
-        }
+        String startBalance = sPref.getString(BUDGET, "");
+        String currentBalance = sPref.getString(CURRENT_BUDGET, "");
+        String spentBalance = sPref.getString(SPENT_BUDGET, "");
+        String moneyBoxBalance = sPref.getString(MONEY_BOX_BUDGET, "");
+        String yourDeptsBalance = sPref.getString(YOUR_DEPTS_BUDGET, "");
+        String deptsBalance = sPref.getString(DEPT_BUDGET, "");
+
         textViewStartBalance.setText(startBalance + " б.р.");
         textViewCurrentBalance.setText(currentBalance + " б.р.");
         textViewSpentBalance.setText(spentBalance + " б.р.");
@@ -111,8 +92,6 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.main_change_start_balance:
-                //BudgetDialog budgetDialog = new BudgetDialog();
-                //budgetDialog.show(getFragmentManager(), "budget");
                 Intent intent = new Intent(this, BudgetActivity.class);
                 startActivity(intent);
                 break;
