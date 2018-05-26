@@ -13,17 +13,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
-import by.proslau.watchthemoney.dialog.BudgetDialog;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     SharedPreferences sPref;
 
@@ -78,17 +76,11 @@ public class MainActivity extends AppCompatActivity
 
         btnChangeStartBalance = (Button) findViewById(R.id.main_change_start_balance);
         btnChangeStartBalance.setOnClickListener(this);
-
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.main_swipe_layout);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
-
-
         loadAll();
 
     }
 
-    void loadAll() {
+    public void loadAll() {
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         try {
             String a = sPref.getString(BUDGET, "");
@@ -119,22 +111,12 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.main_change_start_balance:
-                BudgetDialog budgetDialog = new BudgetDialog();
-                budgetDialog.show(getFragmentManager(), "budget");
+                //BudgetDialog budgetDialog = new BudgetDialog();
+                //budgetDialog.show(getFragmentManager(), "budget");
+                Intent intent = new Intent(this, BudgetActivity.class);
+                startActivity(intent);
                 break;
         }
-    }
-
-    @Override
-    public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Отменяем анимацию обновления
-                swipeRefreshLayout.setRefreshing(false);
-                loadAll();
-            }
-        }, 500);
     }
 
     @Override
@@ -150,7 +132,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume(){
         super.onResume();
-        Toast.makeText(this, "Потяните для обновления", Toast.LENGTH_SHORT).show();
+        loadAll();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
