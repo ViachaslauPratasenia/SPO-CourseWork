@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
 
@@ -72,19 +73,31 @@ public class MainActivity extends AppCompatActivity
 
     public void loadAll() {
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
-        String startBalance = sPref.getString(BUDGET, "");
-        String currentBalance = sPref.getString(CURRENT_BUDGET, "");
-        String spentBalance = sPref.getString(SPENT_BUDGET, "");
-        String moneyBoxBalance = sPref.getString(MONEY_BOX_BUDGET, "");
-        String yourDeptsBalance = sPref.getString(YOUR_DEPTS_BUDGET, "");
-        String deptsBalance = sPref.getString(DEPT_BUDGET, "");
+        try {
+            String startBalance = Math.rint(100.0 * Double.parseDouble(sPref.getString
+                    (BUDGET, ""))) / 100.0 + " б.р.";
+            String currentBalance = Math.rint(100.0 * Double.parseDouble(sPref.getString
+                    (CURRENT_BUDGET, ""))) / 100.0 + " б.р.";
+            String spentBalance = Math.rint(100.0 * Double.parseDouble(sPref.getString
+                    (SPENT_BUDGET, ""))) / 100.0 + " б.р.";
+            String moneyBoxBalance = Math.rint(100.0 * Double.parseDouble(sPref.getString
+                    (MONEY_BOX_BUDGET, ""))) / 100.0 + " б.р.";
+            String yourDeptsBalance = Math.rint(100.0 * Double.parseDouble(sPref.getString
+                    (YOUR_DEPTS_BUDGET, ""))) / 100.0 + " б.р.";
+            String deptsBalance = Math.rint(100.0 * Double.parseDouble(sPref.getString
+                    (DEPT_BUDGET, ""))) / 100.0 + " б.р.";
 
-        textViewStartBalance.setText(startBalance + " б.р.");
-        textViewCurrentBalance.setText(currentBalance + " б.р.");
-        textViewSpentBalance.setText(spentBalance + " б.р.");
-        textViewMoneyBoxBalance.setText(moneyBoxBalance + " б.р.");
-        textViewYourDeptsBalance.setText(yourDeptsBalance + " б.р.");
-        textViewDeptsBalance.setText(deptsBalance + " б.р.");
+            textViewStartBalance.setText(startBalance);
+            textViewCurrentBalance.setText(currentBalance);
+            textViewSpentBalance.setText(spentBalance);
+            textViewMoneyBoxBalance.setText(moneyBoxBalance);
+            textViewYourDeptsBalance.setText(yourDeptsBalance);
+            textViewDeptsBalance.setText(deptsBalance);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Число еще не добавлено", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
 
