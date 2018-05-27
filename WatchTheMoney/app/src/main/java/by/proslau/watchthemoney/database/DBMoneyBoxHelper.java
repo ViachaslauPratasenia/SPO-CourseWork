@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 
 public class DBMoneyBoxHelper {
-    private static final String DB_NAME = "WTMDatabase";
+    private static final String DB_NAME = "HomeAccountingDB";
     private static final int DB_MONEYBOX_VERSION = 1;
 
     private final Context context;

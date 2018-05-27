@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 
 public class DBDebtorHelper {
-    private static final String DB_NAME = "database";
+    private static final String DB_NAME = "HomeAccountingDB";
     private static final int DB_VERSION = 1;
     private final Context context;
     private DBHelper dbHelper;

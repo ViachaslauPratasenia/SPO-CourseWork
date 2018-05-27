@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class DBBirthdaysHelper {
-    private static final String DB_NAME = "WTMDatabase";
+    private static final String DB_NAME = "HomeAccountingDB";
     private static final int DB_BIRTHDAYS_VERSION = 1;
     private final Context context;
     private DBHelper dbHelper;

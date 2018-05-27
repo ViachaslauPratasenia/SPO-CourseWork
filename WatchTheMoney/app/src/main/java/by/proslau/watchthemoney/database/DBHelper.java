@@ -1,5 +1,6 @@
 package by.proslau.watchthemoney.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -33,19 +34,26 @@ public class DBHelper extends SQLiteOpenHelper {
             COLUMN_BIRTHDAYS_NAME + " text, " +
             COLUMN_BIRTHDAYS_DATE + " text" + ");";
 
-    public static final String DB_PAYMENTS_TABLE = "payments";
-    public static final String COLUMN_PAYMENTS_ID = "_id";
-    public static final String COLUMN_PAYMENTS_DATE = "dayOfPayments";
-    public static final String COLUMN_PAYMENTS_MONEY = "money";
-    public static final String COLUMN_PAYMENTS_CATEGORY = "category";
-    public static final String COLUMN_PAYMENTS_NOTE = "note";
+    public static final String CATEGORY_TABLE = "category";
+    public static final String CATEGORY_COLUMN_ID = "_id";
+    public static final String CATEGORY_COLUMN_NAME = "name";
 
-    private static final String DB_CREATE_PAYMENTS = "create table " + DB_PAYMENTS_TABLE + "(" +
-            COLUMN_PAYMENTS_ID + " integer primary key autoincrement, " +
-            COLUMN_PAYMENTS_CATEGORY + " text, " +
-            COLUMN_PAYMENTS_MONEY + " real, " +
-            COLUMN_PAYMENTS_DATE + " text, " +
-            COLUMN_PAYMENTS_NOTE + " text);";
+    private static final String CATEGORY_TABLE_CREATE = "create table "
+            + CATEGORY_TABLE + "(" + CATEGORY_COLUMN_ID
+            + " integer primary key, " + CATEGORY_COLUMN_NAME + " text);";
+
+
+    public static final String COSTS_TABLE = "costs";
+    public static final String COSTS_COLUMN_ID = "_id";
+    public static final String COSTS_COLUMN_MONEY = "money";
+    public static final String COSTS_COLUMN_DATE = "cDate";
+    public static final String COSTS_COLUMN_NOTE = "note";
+    public static final String COSTS_COLUMN_CATEGORY = "category";
+
+    private static final String COSTS_TABLE_CREATE = "create table "
+            + COSTS_TABLE + "(" + COSTS_COLUMN_ID + " integer primary key autoincrement, "
+            + COSTS_COLUMN_MONEY + " real, " + COSTS_COLUMN_DATE + " text, "
+            + COSTS_COLUMN_NOTE + " text, " + COSTS_COLUMN_CATEGORY + " integer);";
 
     public static final String DB_MONEYBOX_TABLE = "moneyBox";
     public static final String COLUMN_MONEYBOX_ID = "_id";
@@ -59,6 +67,8 @@ public class DBHelper extends SQLiteOpenHelper {
             COLUMN_MONEYBOX_DATE + " text, " +
             COLUMN_MONEYBOX_NOTE + " text);";
 
+
+
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
         super(context, name, factory, version);
     }
@@ -67,8 +77,18 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(DB_CREATE_DEPTORS);
         sqLiteDatabase.execSQL(DB_CREATE_BIRTHDAYS);
-        sqLiteDatabase.execSQL(DB_CREATE_PAYMENTS);
+        sqLiteDatabase.execSQL(CATEGORY_TABLE_CREATE);
+        sqLiteDatabase.execSQL(COSTS_TABLE_CREATE);
         sqLiteDatabase.execSQL(DB_CREATE_MONEYBOX);
+
+        ContentValues contentValues = new ContentValues();
+        String[] categories = new String[] {"Еда", "Дом", "Одежда и обувь", "Хобби",
+                "Лекарства", "Интернет", "Образование", "Путешествия", "Телефонная связь", "Развлечения"};
+        for(int i = 0; i < categories.length; i++){
+            contentValues.put(CATEGORY_COLUMN_ID, i + 1);
+            contentValues.put(CATEGORY_COLUMN_NAME, categories[i]);
+            sqLiteDatabase.insert(CATEGORY_TABLE, null, contentValues);
+        }
     }
 
     @Override

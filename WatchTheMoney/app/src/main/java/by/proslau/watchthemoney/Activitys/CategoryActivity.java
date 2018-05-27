@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
 import by.proslau.watchthemoney.database.DBCategoryHelper;
+import by.proslau.watchthemoney.database.DBHelper;
 
 /**
  * Created by user on 19.05.2018.
@@ -52,11 +53,11 @@ public class CategoryActivity extends Activity implements View.OnClickListener{
         cursor = db.getCategoryData();
         startManagingCursor(cursor);
 
-        String[] groupFrom = {DBCategoryHelper.CATEGORY_COLUMN_NAME};
+        String[] groupFrom = {DBHelper.CATEGORY_COLUMN_NAME};
         int[] groupTo = {android.R.id.text1};
 
-        String[] childFrom = {DBCategoryHelper.COSTS_COLUMN_MONEY, DBCategoryHelper.COSTS_COLUMN_DATE,
-                    DBCategoryHelper.COSTS_COLUMN_NOTE};
+        String[] childFrom = {DBHelper.COSTS_COLUMN_MONEY, DBHelper.COSTS_COLUMN_DATE,
+                    DBHelper.COSTS_COLUMN_NOTE};
         int[] childTo = {R.id.tv_category_child_money, R.id.tv_category_child_date,
                     R.id.tv_category_child_note};
 
@@ -167,7 +168,7 @@ public class CategoryActivity extends Activity implements View.OnClickListener{
 
         @Override
         protected Cursor getChildrenCursor(Cursor cursor) {
-            int idColumn = cursor.getColumnIndex(DBCategoryHelper.CATEGORY_COLUMN_ID);
+            int idColumn = cursor.getColumnIndex(DBHelper.CATEGORY_COLUMN_ID);
             return  db.getCosts(cursor.getInt(idColumn));
         }
     }
