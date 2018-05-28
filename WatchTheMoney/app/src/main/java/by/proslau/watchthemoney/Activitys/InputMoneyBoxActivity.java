@@ -55,7 +55,7 @@ public class InputMoneyBoxActivity extends Activity implements View.OnClickListe
         switch (view.getId()){
             case R.id.input_money_box_add:
                 try {
-                    double num = Double.parseDouble(etMoney.getText().toString());
+                    double num = Math.rint(100.0 * Double.parseDouble(etMoney.getText().toString())) / 100.0;
                     if(num > Math.pow(10,4)){
                         Toast.makeText(this, "Слишком много, не кажется?", Toast.LENGTH_SHORT).show();
                         break;

@@ -149,6 +149,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:textAlignment="center"
+                android:textColor="@android:color/holo_green_dark"
                 android:textSize="24sp" />
 
             <Button

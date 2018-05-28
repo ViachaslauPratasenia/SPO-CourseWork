@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
@@ -55,7 +54,7 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
         switch (view.getId()){
             case R.id.budget_act_add:
                 try {
-                    num = Double.parseDouble(text.getText().toString());
+                    num = Math.rint(100.0 * Double.parseDouble(text.getText().toString())) / 100.0;
                     if(num < 10000) {
                         addBalance(num);
                         finish();
@@ -68,7 +67,7 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.budget_act_sub:
                 try {
-                    num = Double.parseDouble(text.getText().toString());
+                    num = Math.rint(100.0 * Double.parseDouble(text.getText().toString())) / 100.0;
                     if(num < 10000) {
                         subBalance(num);
                         finish();
@@ -81,7 +80,7 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.budget_act_set:
                 try {
-                    num = Double.parseDouble(text.getText().toString());
+                    num = Math.rint(100.0 * Double.parseDouble(text.getText().toString())) / 100.0;
                     if(num < 100000) {
                         saveStartBalance(num);
                         saveCurrentBalance(num);

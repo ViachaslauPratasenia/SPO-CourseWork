@@ -74,7 +74,7 @@ public class InputCostActivity extends Activity implements View.OnClickListener{
                         Toast.makeText(this, "Введите сумму и дату", Toast.LENGTH_LONG).show();
                     }
                     else{
-                        double input = Double.parseDouble(etMoney.getText().toString());
+                        double input = Math.rint(100.0 * Double.parseDouble(etMoney.getText().toString())) / 100.0;
                         if(input < Math.pow(10, 4)){
                             String inputDate = "" + myYear + "." + myMonth + "." + myDay;
                             intent.putExtra("money", input);
