@@ -65,7 +65,8 @@ public class InputDeptorActivity extends Activity implements View.OnClickListene
                 try {
                     double money = Math.rint(100.0 * Double.parseDouble(etMoney.getText().toString())) / 100.0;
                     if(money < 0 || money > Math.pow(10,4)){
-                        Toast.makeText(this, "Долг не может быть меньше нуля или настолько большим", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Долг не может быть меньше нуля или настолько большим",
+                                Toast.LENGTH_LONG).show();
                         etMoney.setText(null);
                     }
                     else if(etName.getText().toString().equals("")){
@@ -80,7 +81,8 @@ public class InputDeptorActivity extends Activity implements View.OnClickListene
                     }
 
                 } catch (Exception e) {
-                    Toast.makeText(this, "Неправильно введено число", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Неправильно введено число",
+                            Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.input_deptor_add_contacts:

@@ -34,11 +34,13 @@ public class DBDebtorHelper {
     }
 
     public Cursor getAllData(){
-        return sqLiteDatabase.query(DBHelper.DB_DEPTOR_TABLE, null, null, null, null, null, null);
+        return sqLiteDatabase.query(DBHelper.DB_DEPTOR_TABLE, null, null,
+                null, null, null, null);
     }
 
     public Cursor getMoneyDeptor(long id){
-        return sqLiteDatabase.query(DBHelper.DB_DEPTOR_TABLE, new String[]{DBHelper.COLUMN_DEPTOR_MONEY, DBHelper.COLUMN_DEPTOR_CHOISE},
+        return sqLiteDatabase.query(DBHelper.DB_DEPTOR_TABLE, new String[]{
+                DBHelper.COLUMN_DEPTOR_MONEY, DBHelper.COLUMN_DEPTOR_CHOISE},
                 DBHelper.COLUMN_DEPTOR_ID + " = " + id,
                 null, null, null, null);
     }
@@ -52,6 +54,7 @@ public class DBDebtorHelper {
     }
 
     public void delRec(long id){
-        sqLiteDatabase.delete(DBHelper.DB_DEPTOR_TABLE, DBHelper.COLUMN_DEPTOR_ID + " = " + id, null);
+        sqLiteDatabase.delete(DBHelper.DB_DEPTOR_TABLE,
+                DBHelper.COLUMN_DEPTOR_ID + " = " + id, null);
     }
 }

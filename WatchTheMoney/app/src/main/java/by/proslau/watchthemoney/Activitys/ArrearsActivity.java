@@ -54,7 +54,8 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
             DBHelper.COLUMN_DEPTOR_CHOISE};
         int[] to = new int[]{R.id.tv_deptor_name, R.id.tv_deptor_money, R.id.tv_deptor_choise};
 
-        simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.deptor_item, cursor, from, to);
+        simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.deptor_item, cursor,
+                from, to);
         lvData = (ListView)findViewById(R.id.lv_deptors);
         lvData.setAdapter(simpleCursorAdapter);
         registerForContextMenu(lvData);
@@ -73,7 +74,8 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
     @Override
     public boolean onContextItemSelected(MenuItem item){
         if(item.getItemId() == CM_DELETE_ID){
-            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo)
+                    item.getMenuInfo();
 
             cursorPref = db.getMoneyDeptor(acmi.id);
             cursorPref.moveToFirst();

@@ -6,12 +6,15 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,15 +46,17 @@ public class ContactActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_activity);
         listView = (ListView) findViewById(R.id.lv_contacts);
-        int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
+        int permissionStatus = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS);
         if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
             stringArrayList = getContacts();
         } else {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_CONTACTS},
-                    REQUEST_CODE_READ_CONTACTS);
+            ActivityCompat.requestPermissions(this, new String[]
+                { Manifest.permission.READ_CONTACTS }, REQUEST_CODE_READ_CONTACTS);
         }
 
-        arrayAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stringArrayList);
+        arrayAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                stringArrayList);
         arrayAdapter.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -75,15 +80,17 @@ public class ContactActivity extends Activity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_READ_CONTACTS:
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Для получения контактов зайдите сюда еще раз", Toast.LENGTH_SHORT).show();
                     getContacts();
+                    finish();
                 } else {
-                    Toast.makeText(this, "Аааа ашибка", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Ошибка получения контактов",
+                            Toast.LENGTH_SHORT).show();
                 }
                 return;
         }
@@ -92,12 +99,12 @@ public class ContactActivity extends Activity {
     public ArrayList<String> getContacts(){
         ArrayList<String> arrayList = new ArrayList<>();
         ContentResolver contentResolver = getContentResolver();
-        Cursor cursor = contentResolver.query(CONTENT_URI, null,null,null,null);
+        Cursor cursor = contentResolver.query(CONTENT_URI, null,null,
+                null,null);
         if(cursor.getCount() > 0){
             while (cursor.moveToNext()){
                 String name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
                 int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex(HAS_PHONE_NUMBER)));
-
                 if(hasPhoneNumber > 0){
                     arrayList.add(name);
                 }

@@ -57,12 +57,14 @@ public class InputMoneyBoxActivity extends Activity implements View.OnClickListe
                 try {
                     double num = Math.rint(100.0 * Double.parseDouble(etMoney.getText().toString())) / 100.0;
                     if(num > Math.pow(10,4)){
-                        Toast.makeText(this, "Слишком много, не кажется?", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Слишком много, не кажется?",
+                                Toast.LENGTH_SHORT).show();
                         break;
                     }
                     else{
                         if(etMoney.getText().toString().equals("") && textView.getText().toString().equals("")){
-                            Toast.makeText(this, "Введите сумму и дату", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "Введите сумму и дату",
+                                    Toast.LENGTH_LONG).show();
                         }
                         else{
                             String inputDate = "" + myYear + "." + myMonth + "." + myDay;
@@ -75,7 +77,8 @@ public class InputMoneyBoxActivity extends Activity implements View.OnClickListe
                         break;
                     }
                 } catch (Exception e) {
-                    Toast.makeText(this, "Неправильно введено число", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Неправильно введено число",
+                            Toast.LENGTH_LONG).show();
                 }
             case R.id.money_box_choise_date:
                 showDialog(DIALOG_DATE);

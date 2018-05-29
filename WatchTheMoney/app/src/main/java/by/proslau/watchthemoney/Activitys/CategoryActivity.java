@@ -110,7 +110,8 @@ public class CategoryActivity extends Activity implements View.OnClickListener{
                 return true;
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Нельзя удалить из названия категории", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Нельзя удалить из названия категории",
+                    Toast.LENGTH_SHORT).show();
         }
         return super.onContextItemSelected(item);
     }

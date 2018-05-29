@@ -59,7 +59,8 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
                         addBalance(num);
                         finish();
                     }else {
-                        Toast.makeText(this, "Слишком большое число", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Слишком большое число",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } catch (NumberFormatException e) {
                     Toast.makeText(this, "Введите число", Toast.LENGTH_SHORT).show();
@@ -72,7 +73,8 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
                         subBalance(num);
                         finish();
                     }else {
-                        Toast.makeText(this, "Слишком большое число", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Слишком большое число",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } catch (NumberFormatException e) {
                     Toast.makeText(this, "Введите число", Toast.LENGTH_SHORT).show();
@@ -87,7 +89,8 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
                         saveSpentResetBalance();
                         finish();
                     }else {
-                        Toast.makeText(this, "Слишком большое число", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Слишком большое число",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } catch (NumberFormatException e) {
                     Toast.makeText(this, "Введите число", Toast.LENGTH_SHORT).show();

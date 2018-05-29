@@ -9,160 +9,154 @@
     tools:context="by.proslau.watchthemoney.Activitys.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <ScrollView
-        android:id="@+id/scroll_main"
+    <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
-        <LinearLayout
-            android:id="@+id/layout"
+        <TextView
+            android:id="@+id/tv_main_start_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
-
-            <TextView
-                android:id="@+id/tv_main_start_balance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/start_balance_str"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
-                android:textSize="24sp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"/>
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/start_balance_str"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="24sp" />
 
 
-            <TextView
-                android:id="@+id/tv_main_start_balance_num"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
-                android:textSize="24sp" />
+        <TextView
+            android:id="@+id/tv_main_start_balance_num"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_spent_balance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/spent_balance_str"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"/>
+        <TextView
+            android:id="@+id/tv_spent_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/spent_balance_str"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_main_spent_balance_num"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp" />
+        <TextView
+            android:id="@+id/tv_main_spent_balance_num"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_main_current_balance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/current_balance_str"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="24sp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"/>
+        <TextView
+            android:id="@+id/tv_main_current_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/current_balance_str"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_main_current_balance_num"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="24sp" />
+        <TextView
+            android:id="@+id/tv_main_current_balance_num"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_main_money_box"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/money_box_str"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_purple"
-                android:textSize="24sp" />
+        <TextView
+            android:id="@+id/tv_main_money_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/money_box_str"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_main_money_box_num"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_purple"
-                android:textSize="24sp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"/>
+        <TextView
+            android:id="@+id/tv_main_money_box_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_main_your_depts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/your_depts_str"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"/>
+        <TextView
+            android:id="@+id/tv_main_your_depts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/your_depts_str"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_main_your_depts_num"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"/>
+        <TextView
+            android:id="@+id/tv_main_your_depts_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_main_depts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/depts_str"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="24sp" />
+        <TextView
+            android:id="@+id/tv_main_depts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/depts_str"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_main_depts_num"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="24sp" />
+        <TextView
+            android:id="@+id/tv_main_depts_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="24sp" />
 
-            <Button
-                android:id="@+id/main_change_start_balance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:lineSpacingExtra="8sp"
-                android:text="@string/change_balance_Str"
-                android:textColor="@android:color/background_light"
-                android:textSize="18sp" />
+        <Button
+            android:id="@+id/main_change_start_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:lineSpacingExtra="8sp"
+            android:text="@string/change_balance_Str"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

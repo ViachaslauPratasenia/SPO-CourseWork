@@ -46,17 +46,19 @@ public class DBCategoryHelper {
     }
 
     public Cursor getCategoryData(){
-        return mDB.query(DBHelper.CATEGORY_TABLE, null, null, null, null, null, null);
+        return mDB.query(DBHelper.CATEGORY_TABLE, null,
+                null, null,null, null, null);
     }
 
     public Cursor getMoney(long id){
-        return mDB.query(DBHelper.COSTS_TABLE, new String[]{DBHelper.COSTS_COLUMN_MONEY}, DBHelper.COSTS_COLUMN_ID + " = " + id,
-            null, null, null, null);
+        return mDB.query(DBHelper.COSTS_TABLE, new String[]{DBHelper.COSTS_COLUMN_MONEY},
+                DBHelper.COSTS_COLUMN_ID + " = " + id, null, null,
+                null, null);
     }
 
     public Cursor getCosts(long categoryID){
-        return mDB.query(DBHelper.COSTS_TABLE, null, DBHelper.COSTS_COLUMN_CATEGORY + " = " + categoryID,
-                null, null, null, null);
+        return mDB.query(DBHelper.COSTS_TABLE, null, DBHelper.COSTS_COLUMN_CATEGORY +
+                " = " + categoryID, null, null, null, null);
     }
 
     public void addRec(Double money, String date, String note, int category){

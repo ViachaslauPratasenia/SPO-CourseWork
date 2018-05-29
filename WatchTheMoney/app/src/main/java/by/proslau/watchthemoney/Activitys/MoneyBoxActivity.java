@@ -53,10 +53,12 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
         cursor.requery();
 
 
-        String[] from = new String[]{DBHelper.COLUMN_MONEYBOX_MONEY, DBHelper.COLUMN_MONEYBOX_DATE, DBHelper.COLUMN_MONEYBOX_NOTE};
+        String[] from = new String[]{DBHelper.COLUMN_MONEYBOX_MONEY, DBHelper.COLUMN_MONEYBOX_DATE,
+                DBHelper.COLUMN_MONEYBOX_NOTE};
         int[] to = new int[] {R.id.tv_money_box_money, R.id.tv_money_box_date, R.id.tv_money_box_note};
 
-        simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.money_box_item, cursor, from, to);
+        simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.money_box_item, cursor,
+                from, to);
         lvMoneyBox = (ListView) findViewById(R.id.lv_money_box);
         lvMoneyBox.setAdapter(simpleCursorAdapter);
         registerForContextMenu(lvMoneyBox);
@@ -84,7 +86,8 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
     @Override
     public boolean onContextItemSelected(MenuItem item){
         if(item.getItemId() == CM_DELETE_ID){
-            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo)
+                    item.getMenuInfo();
             delPreference = dbMoneyBoxHelper.getMoney(acmi.id);
             delPreference.moveToFirst();
             double num = delPreference.getDouble(0);

@@ -41,7 +41,8 @@ public class BirthdaysActivity extends Activity implements View.OnClickListener{
         String from[] = new String[] {DBHelper.COLUMN_BIRTHDAYS_NAME, DBHelper.COLUMN_BIRTHDAYS_DATE};
         int[] to = new int[] {R.id.tv_birthdays_name, R.id.tv_birhdays_date};
 
-        simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.birthdays_item, cursor, from, to);
+        simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.birthdays_item, cursor,
+                from, to);
         lvBirthdays = (ListView) findViewById(R.id.lv_birthdays);
         lvBirthdays.setAdapter(simpleCursorAdapter);
         registerForContextMenu(lvBirthdays);
@@ -68,7 +69,8 @@ public class BirthdaysActivity extends Activity implements View.OnClickListener{
     @Override
     public boolean onContextItemSelected(MenuItem item){
         if(item.getItemId() == CM_DELETE_ID){
-            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo)
+                    item.getMenuInfo();
             dbBirthdaysHelper.delRec(acmi.id);
             cursor.requery();
             return true;

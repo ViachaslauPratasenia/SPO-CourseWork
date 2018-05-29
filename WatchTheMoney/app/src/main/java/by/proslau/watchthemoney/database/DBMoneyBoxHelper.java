@@ -31,7 +31,8 @@ public class DBMoneyBoxHelper {
     }
 
     public Cursor getAllData(){
-        return sqLiteDatabase.query(DBHelper.DB_MONEYBOX_TABLE, null, null, null, null, null, null);
+        return sqLiteDatabase.query(DBHelper.DB_MONEYBOX_TABLE, null, null,
+                null, null, null, null);
     }
 
     public void addRec(double money, String date, String note){
@@ -43,12 +44,13 @@ public class DBMoneyBoxHelper {
     }
 
     public Cursor getMoney(long id){
-        return sqLiteDatabase.query(DBHelper.DB_MONEYBOX_TABLE, new String[]{DBHelper.COLUMN_MONEYBOX_MONEY},
-                DBHelper.COLUMN_MONEYBOX_ID + " = " + id,
+        return sqLiteDatabase.query(DBHelper.DB_MONEYBOX_TABLE, new String[]{
+                DBHelper.COLUMN_MONEYBOX_MONEY}, DBHelper.COLUMN_MONEYBOX_ID + " = " + id,
                 null, null, null, null);
     }
 
     public void delRec(long id){
-        sqLiteDatabase.delete(DBHelper.DB_MONEYBOX_TABLE, DBHelper.COLUMN_MONEYBOX_ID + " = " + id, null);
+        sqLiteDatabase.delete(DBHelper.DB_MONEYBOX_TABLE,
+                DBHelper.COLUMN_MONEYBOX_ID + " = " + id, null);
     }
 }
