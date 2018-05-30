@@ -33,9 +33,9 @@ import by.proslau.watchthemoney.R;
 
 public class ContactActivity extends Activity {
     private static final int REQUEST_CODE_READ_CONTACTS = 99;
-    ArrayList<String> stringArrayList = new ArrayList<>();
-    ArrayAdapter<String> arrayAdapter;
-    ListView listView;
+    private ArrayList<String> stringArrayList = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapter;
+    private ListView listView;
 
     private static final Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
     private static final String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;

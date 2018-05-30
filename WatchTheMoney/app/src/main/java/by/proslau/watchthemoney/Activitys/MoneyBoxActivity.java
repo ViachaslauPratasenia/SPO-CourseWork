@@ -18,38 +18,35 @@ import by.proslau.watchthemoney.R;
 import by.proslau.watchthemoney.database.DBHelper;
 import by.proslau.watchthemoney.database.DBMoneyBoxHelper;
 
+import static by.proslau.watchthemoney.ConstainsPreference.*;
+
 /**
  * Created by user on 23.04.2018.
  */
 
 public class MoneyBoxActivity extends Activity implements View.OnClickListener{
     private static final int CM_DELETE_ID = 1;
-    Button btnAdd;
-    ListView lvMoneyBox;
-    DBMoneyBoxHelper dbMoneyBoxHelper;
-    SimpleCursorAdapter simpleCursorAdapter;
-    Cursor cursor;
-    Cursor delPreference;
+    private Button btnAdd;
+    private ListView lvMoneyBox;
+    private DBMoneyBoxHelper db;
+    private SimpleCursorAdapter simpleCursorAdapter;
+    private Cursor cursor;
+    private Cursor delPreference;
 
-    SharedPreferences sharedPreferences;
-    private static final String APP_PREFERENCE = "WTMPreference";
-    private static final String CURRENT_BUDGET = "current_budget";
-    private static final String SPENT_BUDGET = "spent_budget";
-    private static final String MONEY_BOX_BUDGET = "money_box_budget";
-
-    double currentBalance;
-    double spentBalance;
-    double moneyBoxBalance;
+    private SharedPreferences sharedPreferences;
+    private double currentBalance;
+    private double spentBalance;
+    private double moneyBoxBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.money_box_activity);
 
-        dbMoneyBoxHelper = new DBMoneyBoxHelper(this);
-        dbMoneyBoxHelper.open();
+        db = new DBMoneyBoxHelper(this);
+        db.open();
 
-        cursor = dbMoneyBoxHelper.getAllData();
+        cursor = db.getAllData();
         cursor.requery();
 
 
@@ -88,11 +85,11 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
         if(item.getItemId() == CM_DELETE_ID){
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo)
                     item.getMenuInfo();
-            delPreference = dbMoneyBoxHelper.getMoney(acmi.id);
+            delPreference = db.getMoney(acmi.id);
             delPreference.moveToFirst();
             double num = delPreference.getDouble(0);
             setPreference(num, 0);
-            dbMoneyBoxHelper.delRec(acmi.id);
+            db.delRec(acmi.id);
             cursor.requery();
             return true;
         }
@@ -106,7 +103,7 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
         String date = data.getStringExtra("date");
         String note = data.getStringExtra("note");
         setPreference(money, 1);
-        dbMoneyBoxHelper.addRec(money, date, note);
+        db.addRec(money, date, note);
         cursor.requery();
     }
 
@@ -150,6 +147,6 @@ public class MoneyBoxActivity extends Activity implements View.OnClickListener{
 
     protected void onDestroy(){
         super.onDestroy();
-        dbMoneyBoxHelper.close();
+        db.close();
     }
 }

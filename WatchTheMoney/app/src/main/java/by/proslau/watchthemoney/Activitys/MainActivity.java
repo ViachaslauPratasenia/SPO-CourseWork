@@ -15,29 +15,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import by.proslau.watchthemoney.ConstainsPreference;
 import by.proslau.watchthemoney.R;
+
+import static by.proslau.watchthemoney.ConstainsPreference.*;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    SharedPreferences sPref;
+    private SharedPreferences sPref;
+    private TextView tvStart;
+    private TextView tvSpent;
+    private TextView tvCurrent;
+    private TextView tvMoneyBox;
+    private TextView tvYourDepts;
+    private TextView tvDepts;
 
-    private static final String APP_PREFERENCE = "WTMPreference";
-    private static final String BUDGET = "start_budget";
-    private static final String CURRENT_BUDGET = "current_budget";
-    private static final String SPENT_BUDGET = "spent_budget";
-    private static final String MONEY_BOX_BUDGET = "money_box_budget";
-    private static final String YOUR_DEPTS_BUDGET = "your_depts_budget";
-    private static final String DEPT_BUDGET = "dept_budget";
-
-    TextView textViewStartBalance;
-    TextView textViewSpentBalance;
-    TextView textViewCurrentBalance;
-    TextView textViewMoneyBoxBalance;
-    TextView textViewYourDeptsBalance;
-    TextView textViewDeptsBalance;
-
-    Button btnChangeStartBalance;
+    private Button btnChangeBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +49,21 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        textViewStartBalance = (TextView) findViewById(R.id.tv_main_start_balance_num);
-        textViewSpentBalance = (TextView) findViewById(R.id.tv_main_spent_balance_num);
-        textViewCurrentBalance = (TextView) findViewById(R.id.tv_main_current_balance_num);
-        textViewMoneyBoxBalance = (TextView) findViewById(R.id.tv_main_money_box_num);
-        textViewYourDeptsBalance = (TextView) findViewById(R.id.tv_main_your_depts_num);
-        textViewDeptsBalance = (TextView) findViewById(R.id.tv_main_depts_num);
+        tvStart = (TextView) findViewById(R.id.tv_main_start_balance_num);
+        tvSpent = (TextView) findViewById(R.id.tv_main_spent_balance_num);
+        tvCurrent = (TextView) findViewById(R.id.tv_main_current_balance_num);
+        tvMoneyBox = (TextView) findViewById(R.id.tv_main_money_box_num);
+        tvYourDepts = (TextView) findViewById(R.id.tv_main_your_depts_num);
+        tvDepts = (TextView) findViewById(R.id.tv_main_depts_num);
 
-        btnChangeStartBalance = (Button) findViewById(R.id.main_change_start_balance);
-        btnChangeStartBalance.setOnClickListener(this);
+        btnChangeBalance = (Button) findViewById(R.id.main_change_start_balance);
+        btnChangeBalance.setOnClickListener(this);
         loadAll();
 
     }
 
     public void loadAll() {
-        sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
+        sPref = getSharedPreferences(ConstainsPreference.APP_PREFERENCE, MODE_PRIVATE);
         try {
             String startBalance = Math.rint(100.0 * Double.parseDouble(sPref.getString
                     (BUDGET, ""))) / 100.0 + " б.р.";
@@ -84,12 +78,12 @@ public class MainActivity extends AppCompatActivity
             String deptsBalance = Math.rint(100.0 * Double.parseDouble(sPref.getString
                     (DEPT_BUDGET, ""))) / 100.0 + " б.р.";
 
-            textViewStartBalance.setText(startBalance);
-            textViewCurrentBalance.setText(currentBalance);
-            textViewSpentBalance.setText(spentBalance);
-            textViewMoneyBoxBalance.setText(moneyBoxBalance);
-            textViewYourDeptsBalance.setText(yourDeptsBalance);
-            textViewDeptsBalance.setText(deptsBalance);
+            tvStart.setText(startBalance);
+            tvCurrent.setText(currentBalance);
+            tvSpent.setText(spentBalance);
+            tvMoneyBox.setText(moneyBoxBalance);
+            tvYourDepts.setText(yourDeptsBalance);
+            tvDepts.setText(deptsBalance);
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Число еще не добавлено", Toast.LENGTH_SHORT).show();
         }

@@ -10,24 +10,19 @@ import android.widget.Toast;
 
 import by.proslau.watchthemoney.R;
 
+import static by.proslau.watchthemoney.ConstainsPreference.*;
+
 /**
  * Created by user on 26.05.2018.
  */
 
 public class BudgetActivity extends Activity implements View.OnClickListener {
 
-    SharedPreferences sPref;
-    private static final String APP_PREFERENCE = "WTMPreference";
-    private static final String BUDGET = "start_budget";
-    private static final String CURRENT_BUDGET = "current_budget";
-    private static final String SPENT_BUDGET = "spent_budget";
-    private static final String MONEY_BOX_BUDGET = "money_box_budget";
-    private static final String YOUR_DEPTS_BUDGET = "your_depts_budget";
-    private static final String DEPT_BUDGET = "dept_budget";
-    EditText text;
-    double num;
+    private SharedPreferences sPref;
+    private EditText text;
+    private double num;
 
-    Button btnAdd, btnSub, btnSet, btnReset, btnCancel;
+    private Button btnAdd, btnSub, btnSet, btnReset, btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +82,9 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
                         saveStartBalance(num);
                         saveCurrentBalance(num);
                         saveSpentResetBalance();
+                        saveMoneyBoxBalance();
+                        saveYourDeptsBalance();
+                        saveDeptsBalance();
                         finish();
                     }else {
                         Toast.makeText(this, "Слишком большое число",
@@ -100,9 +98,6 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
                 saveStartBalance(0);
                 saveCurrentBalance(0);
                 saveSpentResetBalance();
-                saveMoneyBoxBalance();
-                saveYourDeptsBalance();
-                saveDeptsBalance();
                 finish();
                 break;
             case R.id.budget_act_cancel:
@@ -111,28 +106,28 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    void saveStartBalance(double num) {
+    public void saveStartBalance(double num) {
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(BUDGET, num + "");
         ed.commit();
     }
 
-    void saveMoneyBoxBalance() {
+    public void saveMoneyBoxBalance() {
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(MONEY_BOX_BUDGET, 0 + "");
         ed.commit();
     }
 
-    void saveYourDeptsBalance() {
+    public void saveYourDeptsBalance() {
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(YOUR_DEPTS_BUDGET, 0 + "");
         ed.commit();
     }
 
-    void saveDeptsBalance() {
+    public void saveDeptsBalance() {
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(DEPT_BUDGET, 0 + "");
@@ -146,14 +141,14 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
         ed.commit();
     }
 
-    void saveCurrentBalance(double num){
+    public void saveCurrentBalance(double num){
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(CURRENT_BUDGET, num + "");
         ed.commit();
     }
 
-    void addBalance(double num){
+    public void addBalance(double num){
         double temp;
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
@@ -167,7 +162,7 @@ public class BudgetActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    void subBalance(double num){
+    public void subBalance(double num){
         double temp;
         sPref = getSharedPreferences(APP_PREFERENCE, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();

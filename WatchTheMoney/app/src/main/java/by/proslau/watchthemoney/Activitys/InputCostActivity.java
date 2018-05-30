@@ -23,20 +23,20 @@ import by.proslau.watchthemoney.R;
  */
 
 public class InputCostActivity extends Activity implements View.OnClickListener{
-    EditText etMoney;
-    Button btnOK;
-    Button btnChoiseData;
-    TextView textView;
-    TextView editTextNote;
-    Spinner spinner;
-    int spinnerPosition;
+    private EditText etMoney;
+    private Button btnOK;
+    private Button btnChoiceDate;
+    private TextView textView;
+    private EditText etNote;
+    private Spinner spinner;
+    private int spinnerPosition;
 
-    Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
 
-    int DIALOG_DATE = 1;
-    int myYear = calendar.get(Calendar.YEAR);
-    int myMonth = calendar.get(Calendar.MONTH);
-    int myDay = calendar.get(Calendar.DAY_OF_MONTH);
+    private int DIALOG_DATE = 1;
+    private int myYear = calendar.get(Calendar.YEAR);
+    private int myMonth = calendar.get(Calendar.MONTH) + 1;
+    private int myDay = calendar.get(Calendar.DAY_OF_MONTH);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +45,9 @@ public class InputCostActivity extends Activity implements View.OnClickListener{
 
         etMoney = (EditText) findViewById(R.id.et_cost_money);
         btnOK = (Button) findViewById(R.id.input_cost_add);
-        btnChoiseData = (Button) findViewById(R.id.cost_choise_date);
+        btnChoiceDate = (Button) findViewById(R.id.cost_choise_date);
         textView = (TextView) findViewById(R.id.tv_cost_choise_date);
-        editTextNote = (EditText) findViewById(R.id.et_cost_note);
+        etNote = (EditText) findViewById(R.id.et_cost_note);
         spinner = (Spinner) findViewById(R.id.spinner_input_cost);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -61,7 +61,7 @@ public class InputCostActivity extends Activity implements View.OnClickListener{
             }
         });
         btnOK.setOnClickListener(this);
-        btnChoiseData.setOnClickListener(this);
+        btnChoiceDate.setOnClickListener(this);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class InputCostActivity extends Activity implements View.OnClickListener{
                             String inputDate = "" + myYear + "." + myMonth + "." + myDay;
                             intent.putExtra("money", input);
                             intent.putExtra("date", inputDate);
-                            intent.putExtra("note", editTextNote.getText().toString());
+                            intent.putExtra("note", etNote.getText().toString());
                             intent.putExtra("category", spinnerPosition);
                             setResult(RESULT_OK, intent);
                             finish();

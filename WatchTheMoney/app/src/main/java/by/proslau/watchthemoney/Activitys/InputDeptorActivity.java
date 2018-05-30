@@ -18,14 +18,12 @@ import by.proslau.watchthemoney.R;
 
 public class InputDeptorActivity extends Activity implements View.OnClickListener {
 
-    EditText etName;
-    EditText etMoney;
-    RadioButton yoursDepts;
-    RadioButton depts;
-    Button btnOK;
-    Button btnAddContact;
-    String check;
-    RadioGroup radioGroup;
+    private EditText etName;
+    private EditText etMoney;
+    private Button btnOK;
+    private Button btnAddContact;
+    private String check;
+    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +31,6 @@ public class InputDeptorActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.input_deptor);
         etName = (EditText) findViewById(R.id.et_arrears_name);
         etMoney = (EditText) findViewById(R.id.et_arrears_money);
-        yoursDepts = (RadioButton) findViewById(R.id.yours_depts);
-        depts = (RadioButton) findViewById(R.id.depts);
         btnOK = (Button) findViewById(R.id.input_deptor_add);
         btnOK.setOnClickListener(this);
 

@@ -22,10 +22,10 @@ import by.proslau.watchthemoney.database.DBHelper;
 
 public class BirthdaysActivity extends Activity implements View.OnClickListener{
     private static final int CM_DELETE_ID = 1;
-    ListView lvBirthdays;
-    DBBirthdaysHelper dbBirthdaysHelper;
-    SimpleCursorAdapter simpleCursorAdapter;
-    Cursor cursor;
+    private ListView lvBirthdays;
+    private DBBirthdaysHelper dbBirthdaysHelper;
+    private SimpleCursorAdapter simpleCursorAdapter;
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

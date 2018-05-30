@@ -21,18 +21,18 @@ import by.proslau.watchthemoney.R;
  */
 
 public class InputBirthdaysActivity extends Activity implements View.OnClickListener {
-    EditText etName;
-    Button btnOK;
-    Button btnChoiseData;
-    Button btnAddContact;
-    TextView textView;
+    private EditText etName;
+    private Button btnOK;
+    private Button btnChoiceDate;
+    private Button btnAddContact;
+    private TextView textView;
 
-    Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
 
-    int DIALOG_DATE = 1;
-    int myYear = calendar.get(Calendar.YEAR);
-    int myMonth = calendar.get(Calendar.MONTH);
-    int myDay = calendar.get(Calendar.DAY_OF_MONTH);
+    private int DIALOG_DATE = 1;
+    private int myYear = calendar.get(Calendar.YEAR);
+    private int myMonth = calendar.get(Calendar.MONTH) + 1;
+    private int myDay = calendar.get(Calendar.DAY_OF_MONTH);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +41,9 @@ public class InputBirthdaysActivity extends Activity implements View.OnClickList
 
         etName = (EditText) findViewById(R.id.et_birthdays_name);
         btnOK = (Button) findViewById(R.id.input_birthdays_add);
-        btnChoiseData = (Button) findViewById(R.id.birthays_choise_data);
+        btnChoiceDate = (Button) findViewById(R.id.birthays_choise_data);
         btnOK.setOnClickListener(this);
-        btnChoiseData.setOnClickListener(this);
+        btnChoiceDate.setOnClickListener(this);
 
         btnAddContact = (Button) findViewById(R.id.birthdays_add_contact);
         btnAddContact.setOnClickListener(this);

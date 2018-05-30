@@ -21,18 +21,18 @@ import by.proslau.watchthemoney.R;
  */
 
 public class InputMoneyBoxActivity extends Activity implements View.OnClickListener{
-    EditText etMoney;
-    Button btnOK;
-    Button btnChoiseData;
-    TextView textView;
-    TextView editTextNote;
+    private EditText etMoney;
+    private Button btnOK;
+    private Button btnChoiceDate;
+    private TextView textView;
+    private EditText etNote;
 
-    Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
 
-    int DIALOG_DATE = 1;
-    int myYear = calendar.get(Calendar.YEAR);
-    int myMonth = calendar.get(Calendar.MONTH);
-    int myDay = calendar.get(Calendar.DAY_OF_MONTH);
+    private int DIALOG_DATE = 1;
+    private int myYear = calendar.get(Calendar.YEAR);
+    private int myMonth = calendar.get(Calendar.MONTH) + 1;
+    private int myDay = calendar.get(Calendar.DAY_OF_MONTH);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,11 @@ public class InputMoneyBoxActivity extends Activity implements View.OnClickListe
 
         etMoney = (EditText) findViewById(R.id.et_money_box_money);
         btnOK = (Button) findViewById(R.id.input_money_box_add);
-        btnChoiseData = (Button) findViewById(R.id.money_box_choise_date);
+        btnChoiceDate = (Button) findViewById(R.id.money_box_choise_date);
         btnOK.setOnClickListener(this);
-        btnChoiseData.setOnClickListener(this);
+        btnChoiceDate.setOnClickListener(this);
         textView = (TextView) findViewById(R.id.tv_money_box_choise_date);
-        editTextNote = (TextView) findViewById(R.id.et_money_box_note);
+        etNote = (EditText) findViewById(R.id.et_money_box_note);
 
     }
 
@@ -70,7 +70,7 @@ public class InputMoneyBoxActivity extends Activity implements View.OnClickListe
                             String inputDate = "" + myYear + "." + myMonth + "." + myDay;
                             intent.putExtra("money", num);
                             intent.putExtra("date", inputDate);
-                            intent.putExtra("note", editTextNote.getText().toString());
+                            intent.putExtra("note", etNote.getText().toString());
                             setResult(RESULT_OK, intent);
                             finish();
                         }

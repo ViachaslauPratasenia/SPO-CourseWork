@@ -22,25 +22,23 @@ import by.proslau.watchthemoney.R;
 import by.proslau.watchthemoney.database.DBCategoryHelper;
 import by.proslau.watchthemoney.database.DBHelper;
 
+import static by.proslau.watchthemoney.ConstainsPreference.*;
+
 /**
  * Created by user on 19.05.2018.
  */
 
 public class CategoryActivity extends Activity implements View.OnClickListener{
     private static final int CM_DELETE_ID = 1;
-    ExpandableListView listView;
-    DBCategoryHelper db;
-    Cursor cursor;
-    Cursor cursorPref;
-    Button btnAdd;
+    private ExpandableListView listView;
+    private DBCategoryHelper db;
+    private Cursor cursor;
+    private  Cursor cursorPref;
+    private Button btnAdd;
 
-    SharedPreferences sharedPreferences;
-    private static final String APP_PREFERENCE = "WTMPreference";
-    private static final String CURRENT_BUDGET = "current_budget";
-    private static final String SPENT_BUDGET = "spent_budget";
-
-    double currentBalance;
-    double spentBalance;
+    private SharedPreferences sharedPreferences;
+    private double currentBalance;
+    private double spentBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

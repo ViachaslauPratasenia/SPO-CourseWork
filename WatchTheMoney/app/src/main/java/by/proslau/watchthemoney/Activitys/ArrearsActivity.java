@@ -13,10 +13,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-
 import by.proslau.watchthemoney.R;
 import by.proslau.watchthemoney.database.DBDebtorHelper;
 import by.proslau.watchthemoney.database.DBHelper;
+
+import static by.proslau.watchthemoney.ConstainsPreference.*;
 
 /**
  * Created by user on 16.04.2018.
@@ -25,19 +26,14 @@ import by.proslau.watchthemoney.database.DBHelper;
 public class ArrearsActivity extends Activity implements View.OnClickListener {
 
     private static final int CM_DELETE_ID = 1;
-    ListView lvData;
-    DBDebtorHelper db;
-    SimpleCursorAdapter simpleCursorAdapter;
-    Cursor cursor;
-    Cursor cursorPref;
+    private ListView lvData;
+    private DBDebtorHelper db;
+    private SimpleCursorAdapter simpleCursorAdapter;
+    private Cursor cursor;
+    private Cursor cursorPref;
 
-    SharedPreferences sharedPreferences;
-    private static final String APP_PREFERENCE = "WTMPreference";
-    private static final String YOUR_DEPTS_BUDGET = "your_depts_budget";
-    private static final String DEPT_BUDGET = "dept_budget";
-
-    double yourDepts;
-    double depts;
+    private SharedPreferences sharedPreferences;
+    private double temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -123,16 +119,16 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
         try{
             if(check == 1){
                 String your = sharedPreferences.getString(YOUR_DEPTS_BUDGET, "");
-                yourDepts = Double.parseDouble(your);
-                yourDepts += money;
-                editor.putString(YOUR_DEPTS_BUDGET, yourDepts + "");
+                temp = Double.parseDouble(your);
+                temp += money;
+                editor.putString(YOUR_DEPTS_BUDGET, temp + "");
                 editor.commit();
             }
             else if(check == 0){
                 String deptsStr = sharedPreferences.getString(DEPT_BUDGET, "");
-                depts = Double.parseDouble(deptsStr);
-                depts += money;
-                editor.putString(DEPT_BUDGET, depts + "");
+                temp = Double.parseDouble(deptsStr);
+                temp += money;
+                editor.putString(DEPT_BUDGET, temp + "");
                 editor.commit();
             }
         }catch (NumberFormatException e){
@@ -147,16 +143,16 @@ public class ArrearsActivity extends Activity implements View.OnClickListener {
         try{
             if(choise.equals("Вы должны")){
                 String your = sharedPreferences.getString(YOUR_DEPTS_BUDGET, "");
-                yourDepts = Double.parseDouble(your);
-                yourDepts -= money;
-                editor.putString(YOUR_DEPTS_BUDGET, yourDepts + "");
+                temp = Double.parseDouble(your);
+                temp -= money;
+                editor.putString(YOUR_DEPTS_BUDGET, temp + "");
                 editor.commit();
             }
             else if(choise.equals("Вам должны")){
                 String deptsStr = sharedPreferences.getString(DEPT_BUDGET, "");
-                depts = Double.parseDouble(deptsStr);
-                depts -= money;
-                editor.putString(DEPT_BUDGET, depts + "");
+                temp = Double.parseDouble(deptsStr);
+                temp -= money;
+                editor.putString(DEPT_BUDGET, temp + "");
                 editor.commit();
             }
         }catch (NumberFormatException e){
